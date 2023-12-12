@@ -14,6 +14,10 @@ describe('Product Service', () => {
     expect.assertions(1);
   });
 
+  test('should get all active products', () => {
+    expect.assertions(1);
+  });
+
   test('should get product by id', () => {
     expect.assertions(1);
   });
@@ -31,6 +35,10 @@ describe('Product Service', () => {
   });
 
   test('should get product by merchant id', () => {
+    expect.assertions(1);
+  });
+
+  test('should delete a specific product', () => {
     expect.assertions(1);
   });
 
