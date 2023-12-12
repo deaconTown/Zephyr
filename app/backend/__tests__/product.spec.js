@@ -18,7 +18,19 @@ describe('Product Service', () => {
     expect.assertions(1);
   });
 
-  test('should not login invalid user', () => {
+  test('should increase product stock level when the same product is added', () => {
+    expect.assertions(1);
+  });
+
+  test('should decrease product stock level when the a product is removed', () => {
+    expect.assertions(1);
+  });
+
+  test('product stock level should not go below zero', () => {
+    expect.assertions(1);
+  });
+
+  test('should get product by merchant id', () => {
     expect.assertions(1);
   });
 
