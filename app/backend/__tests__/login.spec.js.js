@@ -2,7 +2,7 @@ const {describe, expect, test} = require('@jest/globals');
 
 describe('Login Service', () => {
 
-  test('should login user valid', () => {
+  test('should login valid user', () => {
     expect.assertions(1);
   });
 
