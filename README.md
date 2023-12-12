@@ -64,4 +64,9 @@ To use the Zephyr Frontend Application, follow these simple steps:
 
 The backend application should now be up and running on your local machine on `https://localhost:3000`.
 
+5. **Run the tests:** Test the Zephyr Backend Application by running the following command.
+
+    ```bash
+    npm test
+    ```
 
