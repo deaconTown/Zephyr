@@ -8,7 +8,7 @@ class User {
     logoUrl;
 
     constructor() {
-        
+
     }
 
 
@@ -18,6 +18,10 @@ class User {
 
     getAll = () => {
         return this.users;
+    }
+
+    getUserById = (id) => {
+        return this.users.find(x => x.id === id);
     }
 
 

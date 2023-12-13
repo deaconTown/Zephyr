@@ -16,6 +16,10 @@ class UserService {
     getAllUser = () => {
         return this.user.getAll();
     }
+
+    getUserById = (id) => {
+        return this.user.getUserById(id);
+    }
 }
 
 module.exports = UserService;

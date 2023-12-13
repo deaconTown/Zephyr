@@ -11,32 +11,69 @@ describe('User Service', () => {
 
 
   test('should create a new user', () => {
+    //arrange
     const newUser = {
       name: "John Doe",
       email: "jd@email.com",
       password: "password123",
     }
 
+    //act
     userService.createNewUser(newUser);
 
-    result = userService.getAllUser();
+    const result = userService.getAllUser();
+
+    //assert
     expect(result.length).toEqual(1);
   });
 
-  test('should get all active mechants', () => {
-    expect.assertions(1);
+  test('should get all users', () => {
+    const newUser = {
+      name: "John Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+    const newUser2 = {
+      name: "Jane Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    userService.createNewUser(newUser);
+    userService.createNewUser(newUser2);
+
+    const sut = userService.getAllUser();
+    const result = sut.length;
+    expect(result).toEqual(2);
   });
 
-  test('should get all active customers', () => {
-    expect.assertions(1);
-  });
+  test('should get a user by id', () => {
+    //arrange
 
-  test('should get a merchant by id', () => {
-    expect.assertions(1);
-  });
+    const newUser = {
+      id: "1",
+      name: "John Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+    const newUser2 = {
+      id: "2",
+      name: "Jane Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
 
-  test('should get a customer by id', () => {
-    expect.assertions(1);
+
+    //act 
+    userService.createNewUser(newUser);
+    userService.createNewUser(newUser2);
+
+    const sut = userService.getUserById("2");
+
+    const result = sut.name;
+
+    //assert
+    expect(result).toEqual("Jane Doe");
   });
 
   test('should delete a specific user', () => {
