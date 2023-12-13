@@ -1,14 +1,13 @@
 class Products{
-
-        id;
-        merchantId;
-        name;
-        unitCost;
-        stockLevel;
-        imageUrl;
-        description;
-        isActive;
-        isDeleted;
+    id;
+    merchantId;
+    name;
+    unitCost;
+    stockLevel;
+    imageUrl;
+    description;
+    isActive;
+    isDeleted;
 
     products = [
         {
@@ -36,7 +35,7 @@ class Products{
         {
             "id": 3,
             "merchantId": 1,
-            "name": "Satisfaction",
+            "name": "Yabba",
             "unitCost": 1200,
             "stockLevel": 100,
             "imageUrl": "",
@@ -65,24 +64,44 @@ class Products{
         return this.products
     }
 
-    createProduct(product){
-        this.products.push(product);
-
-        // found = false;
-
-        // this.products.foreach((prod) => {
-        //     if(product.id == prod.id){
-        //         found = true;
-        //     }
-        // });   
+    createProduct(product){               
+        let existingProducts = this.getAllProducts().filter(prod => prod.id == product.id);  
         
-        // if(found){
-        //     this.products.push(product);
-        // }        
+        if(existingProducts.length <= 0){
+            this.products.push(product);  
+            return product.id;  
+        }else{
+           let currentProduct = this.getProduct(product.id);
+
+           currentProduct.stockLevel+= 1;
+
+           return 0;
+        }              
     }
 
     getProduct(productId){
-        return this.getAllProducts().filter(prod => prod.id == productId);
+        return this.getAllProducts().filter(prod => prod.id == productId && prod.isActive == true && prod.isDeleted == false)[0];
+    }
+
+    updateProduct(updatedProduct){
+       let productToUpdate = this.getProduct(updatedProduct.id);    
+       let index = this.products.findIndex(prod => prod.id == updatedProduct.id);
+
+       let update = {...productToUpdate,...updatedProduct}
+       this.products[index] = update;
+
+       return update.id;
+    }
+
+    deleteProduct(productId){
+        let deletedProduct = this.getProduct(productId);
+
+        deletedProduct.isDeleted = true;
+        deletedProduct.isActive = false;
+        deletedProduct.stockLevel-= 1;
+        this.updateProduct(deletedProduct);
+
+        return deletedProduct.id;
     }
 }
 
