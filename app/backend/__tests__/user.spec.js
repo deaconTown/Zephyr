@@ -1,12 +1,14 @@
 const { describe, expect, test } = require('@jest/globals');
-const UserService = require('../services/userService').default;
+const UserService = require('../services/userService');
+const User = require('../models/User');
 
 describe('User Service', () => {
   let userService;
-
   beforeEach(() => {
+    product = new User();
     userService = new UserService();
-  })
+  });
+
 
   test('should create a new user', () => {
     const newUser = {
@@ -17,7 +19,7 @@ describe('User Service', () => {
 
     userService.createNewUser(newUser);
 
-    result = userService.getAll();
+    result = userService.getAllUser();
     expect(result.length).toEqual(1);
   });
 

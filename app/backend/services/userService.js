@@ -1,13 +1,20 @@
-const user = require("../models/user");
+const User = require("../models/User");
 
 class UserService {
 
+    user;
+
+    constructor() {
+        this.user = new User();
+    }
+
+
     createNewUser = (user) => {
-        user.create(user);
+        this.user.create(user);
     }
 
     getAllUser = () => {
-        return User.getAll();
+        return this.user.getAll();
     }
 }
 

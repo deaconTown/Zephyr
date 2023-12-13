@@ -1,4 +1,4 @@
-class user {
+class User {
 
     users = [];
     name;
@@ -7,13 +7,9 @@ class user {
     location;
     logoUrl;
 
-    // constructor(name, email, password, location, logoUrl) {
-    //     this.name = name;
-    //     this.email = email;
-    //     this.password = password;
-    //     this.location = location;
-    //     this.logoUrl = logoUrl;
-    // }
+    constructor() {
+        
+    }
 
 
     create = (newUser) => {
@@ -31,4 +27,4 @@ class user {
 
 }
 
-module.exports = user;
+module.exports = User;
