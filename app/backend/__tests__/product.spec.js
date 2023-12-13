@@ -26,7 +26,7 @@ describe('Product Service', () => {
     expect.assertions(1);
   });
 
-  test('should decrease product stock level when the a product is removed', () => {
+  test('should decrease product stock level when the product is removed', () => {
     expect.assertions(1);
   });
 
@@ -34,7 +34,7 @@ describe('Product Service', () => {
     expect.assertions(1);
   });
 
-  test('should get product by merchant id', () => {
+  test('should get all products by merchant id', () => {
     expect.assertions(1);
   });
 
