@@ -2,11 +2,11 @@ import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import Logo from '../assets/Zephyr-Logo.png'
 
-function LoginModal() {
-  const [openModal, setOpenModal] = useState(true);
+function LoginModal({initialView,isModalOpen, onClose}) {
+  const [openModal, setOpenModal] = useState(isModalOpen);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('')
-  const [currentView, showView] = useState('signup')
+  const [currentView, showView] = useState(initialView)
 
   function setView(view){
     showView(view)
@@ -16,6 +16,7 @@ function LoginModal() {
     setOpenModal(false)
     setEmail('')
     setName('')
+    onClose()
   }
 
   return (
@@ -37,8 +38,8 @@ function LoginModal() {
             
            
             <div className='[ google-section ]'>
-                <Button color='' pill fullSized className="[ google-btn ][ bg-[#f2f3f6] ]">
-                    <svg className=" w-[20px] " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+                <Button color='' fullSized className="[ google-btn ][ bg-gradient-to-r from-[#1c3e35] to-[#247a4d] ]">
+                    <svg className="[ w-[30px] ]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M43 24.4313C43 23.084 42.8767 21.7885 42.6475 20.5449H24.3877V27.8945H34.8219C34.3724 30.2695 33.0065 32.2818 30.9532 33.6291V38.3964H37.2189C40.885 35.0886 43 30.2177 43 24.4313Z"
                         fill="#4285F4" />
@@ -52,7 +53,7 @@ function LoginModal() {
                         d="M24.3872 12.5568C27.2336 12.5568 29.7894 13.5155 31.7987 15.3982L37.3595 9.94866C34.0018 6.88281 29.6131 5 24.3872 5C16.8082 5 10.2517 9.25777 7.06152 15.4674L13.5388 20.39C15.0633 15.8991 19.3375 12.5568 24.3872 12.5568Z"
                         fill="#EA4335" />
                     </svg>
-                    <p className='[ text-[#1a1b27] font-semibold ][ ml-2 ]'>Continue with Google</p>
+                    <p className='[ text-white font-semibold ][ ml-2 ]'>Continue with Google</p>
                 </Button>
             </div>
             <div class="flex items-center">
@@ -92,7 +93,7 @@ function LoginModal() {
               />
             </div>
             <div>
-              <div className="mb-2 block">
+              <div className="[ mb-2 block ]">
                 <Label htmlFor="password" value="Password" />
               </div>
               <TextInput id="password" type="password" required />
