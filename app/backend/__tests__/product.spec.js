@@ -1,9 +1,33 @@
 const {describe, expect, test} = require('@jest/globals');
+const ProductService = require('../services/products');
+const Products = require('../models/products');
 
 describe('Product Service', () => {
+  let product;
+  let productService;
+  beforeEach(() => {
+    product = new Products();
+    productService = new ProductService();
+  });
 
   test('should create new product', () => {
-    expect.assertions(1);
+    let newProduct = {
+      id: 1,
+      merchantId: 1,
+      name: 'Satisfaction',
+      unitCost: 1200,
+      stockLevel: 100,
+      imageUrl: '',
+      description: 'Rice and Peas with Jerk Chicken',
+      isActive: true,
+      isDeleted: false
+  }
+
+  productService.createProduct(newProduct);
+
+  const result = productService.getAll();
+
+  expect(result.length).toEqual(3);
   });
 
   test('should not recreate existing product', () => {

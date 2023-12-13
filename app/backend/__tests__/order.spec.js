@@ -1,4 +1,4 @@
-const {describe, expect, test, jest} = require('@jest/globals');
+const {describe, expect, test} = require('@jest/globals');
 
 describe('Order Service', () => {
 
@@ -7,7 +7,7 @@ describe('Order Service', () => {
       });
 
       test('should get all orders', () => {
-        jest.spyOn
+        // jest.spyOn
         expect.assertions(1);
       });
 

@@ -1,0 +1,74 @@
+class Products{
+
+        id;
+        merchantId;
+        name;
+        unitCost;
+        stockLevel;
+        imageUrl;
+        description;
+        isActive;
+        isDeleted;
+    // constructor(id,merchantId,name,unitCost,stockLevel,imageUrl,description,isActive,isDeleted){
+    //     this.id = id;
+    //     this.merchantId = merchantId;
+    //     this.name = name;
+    //     this.unitCost = unitCost;
+    //     this.stockLevel = stockLevel;
+    //     this.imageUrl = imageUrl;
+    //     this.description = description;
+    //     this.isActive = isActive;
+    //     this.isDeleted = isDeleted;
+    // }
+
+    products = [
+        {
+            id: 1,
+            merchantId: 1,
+            name: 'Satisfaction',
+            unitCost: 1200,
+            stockLevel: 100,
+            imageUrl: '',
+            description: 'Rice and Peas with Jerk Chicken',
+            isActive: true,
+            isDeleted: false
+        },
+        {
+            id: 2,
+            merchantId: 1,
+            name: 'Just Nuff',
+            unitCost: 900,
+            stockLevel: 10,
+            imageUrl: '',
+            description: 'Festival with Jerk Chicken',
+            isActive: true,
+            isDeleted: false
+        }
+    ];
+    constructor(){
+        // this.products = this.products;
+        
+    }
+
+    getAllProducts(){
+        return this.products
+    }
+
+    createProduct(product){
+        this.products.push(product);
+
+        // found = false;
+
+        // this.products.foreach((prod) => {
+        //     if(product.id == prod.id){
+        //         found = true;
+        //     }
+        // });   
+        
+        // if(found){
+        //     this.products.push(product);
+        // }        
+    }
+}
+
+module.exports = Products;
