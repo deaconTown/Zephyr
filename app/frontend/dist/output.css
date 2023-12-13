@@ -3936,6 +3936,11 @@ input:checked + .toggle-bg {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
+.focus\:bg-primary:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(98 168 124 / var(--tw-bg-opacity));
+}
+
 .focus\:text-cyan-700:focus {
   --tw-text-opacity: 1;
   color: rgb(14 116 144 / var(--tw-text-opacity));
@@ -3944,6 +3949,11 @@ input:checked + .toggle-bg {
 .focus\:text-gray-900:focus {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.focus\:text-white:focus {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus {

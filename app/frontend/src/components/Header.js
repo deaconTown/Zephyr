@@ -1,12 +1,14 @@
 import React from 'react';
 import logo from '../assets/Zephyr Logo.png'
-import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { Avatar, 
+  //Dropdown,
+   Navbar } from 'flowbite-react';
 
 const Header = () => {
   return (
-    <Navbar fluid rounded className='bg-secondary'>
+    <Navbar fluid rounded className='bg-secondary h-32'>
       <Navbar.Brand>
-        <img src={logo} className="mr-3 object-none h-20 w-10 sm:h-9 " alt="zephyr Logo" />
+        <img src={logo} className="scale-50" alt="zephyr Logo" />
       </Navbar.Brand>
       <div className="flex md:order-2">
         <Avatar alt="User settings" bordered />

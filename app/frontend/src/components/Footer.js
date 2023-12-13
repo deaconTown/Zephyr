@@ -8,9 +8,9 @@ const PageFooter = () =>{
             <Footer container className='fixed bottom-0 bg-secondary text-white'>
       <div className="w-full border-s-secondary">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div>
+          <div className='-inset-6'>
             <Footer.Brand
-            className='object-contain'
+            className='w-full h-full scale-50'
               src={logo}
               alt="Zephyr Logo"
             />
