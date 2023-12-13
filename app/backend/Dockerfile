@@ -17,5 +17,5 @@ WORKDIR /app
 # ENV NODE_ENV=production
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-EXPOSE 3000 
+EXPOSE 3001
 CMD ["npm","run", "start"]

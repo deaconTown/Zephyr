@@ -14,6 +14,7 @@ RUN npm run build
 
 FROM deps as dev
 ENV NODE_ENV=development
+EXPOSE 3001 
 CMD ["npm","run", "start"]
 
 # Production image, copy all the files and run react-scripts
