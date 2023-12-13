@@ -24,13 +24,13 @@ const Header = () => {
         <Navbar.Toggle className='hover:text-accent text-base' />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
+        <Navbar.Link className="[ text-[17px] ]" href="#" active>
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
+        <Navbar.Link className="[ text-[17px] ]" href="#">About</Navbar.Link>
+        <Navbar.Link className="[ text-[17px] ]" href="#">Services</Navbar.Link>
+        <Navbar.Link className="[ text-[17px] ]" href="#">Pricing</Navbar.Link>
+        <Navbar.Link className="[ text-[17px] ]" href="#">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
