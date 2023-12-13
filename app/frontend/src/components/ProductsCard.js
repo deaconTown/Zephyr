@@ -12,13 +12,15 @@ const ProductsCard = () => {
                 <Card className="h-96 "> 
                 <div className="container">
                     <div className="flex items-center">
-                        <div className="flex rounded">
-                            <input
-                            type="text"
-                            className="block w-full px-4 py-2 text-base bg-white border rounded-md focus:ring-secondary  focus:outline-none focus:ring focus:ring-opaacity-40"
-                            placeholder="Search..."
-                            />
-                            <button className="px-4 font-semibold text-white bg-primary border-l rounded">
+                        <div className="flex rounded-[10px] h-[45px] ">
+                            <div className=" border px-2 py-2 h-full w-full rounded-l-[10px]">
+                                <input
+                                type="text"
+                                className=" border-none focus:border-none h-[25px] focus:ring-0 focus:after:outline-none text-base bg-white"
+                                placeholder="Search Zephyr..."
+                                />
+                            </div>
+                            <button className="px-4 rounded-r-[10px] border border-primary font-semibold text-white bg-primary">
                                 Search
                             </button>
                         </div>
