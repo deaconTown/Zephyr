@@ -103,6 +103,10 @@ class Products{
 
         return deletedProduct.id;
     }
+
+    getProductsByMerchant(merchantId){
+        return this.products.filter(prod => prod.merchantId == merchantId);
+    }
 }
 
 module.exports = Products;
