@@ -17,14 +17,11 @@ ENV NODE_ENV=development
 CMD ["npm","run", "start"]
 
 # Production image, copy all the files and run react-scripts
-FROM node:alpine AS production
-WORKDIR /app
-ENV NODE_ENV=production
+FROM nginx:alpine AS production
+WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/build .
+# COPY --from=builder /app/conf/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 3000 
-CMD ["npm", "start"]
+EXPOSE 80 
+CMD ["nginx", "-g", "daemon off;"]
