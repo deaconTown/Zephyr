@@ -1,6 +1,11 @@
 class User {
 
-    users = [];
+    users = [{
+        id: "1",
+        name: "John Doe",
+        email: "jd@email.com",
+        password: "password123",
+    }];
     name;
     email;
     password;
