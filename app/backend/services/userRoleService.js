@@ -12,8 +12,6 @@ class UserRoleService {
     createNewUserRole = (roleId, userId) => {
         const newUserRole = this.userRole.create(roleId, userId);
 
-        console.log('this is being called')
-
         return newUserRole;
     }
 

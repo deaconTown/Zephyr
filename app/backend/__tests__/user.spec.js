@@ -37,7 +37,7 @@ describe('User Service', () => {
     const result = userService.getAllUser();
 
     //assert
-    expect(result.length).toEqual(2);
+    expect(result.length).toEqual(1);
   });
 
   test('should get all users', () => {
@@ -57,7 +57,7 @@ describe('User Service', () => {
 
     const sut = userService.getAllUser();
     const result = sut.length;
-    expect(result).toEqual(3);
+    expect(result).toEqual(2);
   });
 
   test('should get a user by id', () => {
@@ -108,8 +108,6 @@ describe('User Service', () => {
     const user2 =  userService.createNewUser(newUser2);
     const user3 =  userService.createNewUser(newUser3);
 
-    console.log("user1",user1)
-
     const newUserRole1 = {
       roleId: merchantRoleId,
       userId: user1.id
@@ -159,8 +157,6 @@ describe('User Service', () => {
     const user2 =  userService.createNewUser(newUser2);
     const user3 =  userService.createNewUser(newUser3);
 
-    console.log("user1",user1)
-
     const newUserRole1 = {
       roleId: customerRoleId,
       userId: user1.id
@@ -192,8 +188,94 @@ describe('User Service', () => {
 
 
   test('should delete a specific user', () => {
-    expect.assertions(1);
+    const newUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+    const newUser2 = {
+      name: "Jane Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+    const newUser3 = {
+      name: "Mary Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(newUser);
+    const user2 =  userService.createNewUser(newUser2);
+    const user3 =  userService.createNewUser(newUser3);
+
+    userService.deleteUser(user1.id);
+    const result = userService.getUserById(user1.id).isDeleted;
+
+    expect(result).toEqual(true);
   });
 
+  
+  test('should set user as inActive', () => {
+    const newUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(newUser);
+
+    userService.deactivateUser(user1.id);
+    const result = userService.getUserById(user1.id).isActive;
+
+    expect(result).toEqual(false);
+  });
+  
+  
+  test('should set user as active', () => {
+    const newUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(newUser);
+
+    userService.deactivateUser(user1.id);
+
+    userService.activateUser(user1.id);
+    const result = userService.getUserById(user1.id).isActive;
+
+    expect(result).toEqual(true);
+  });
+  
+  test('should get all active users only', () => {
+    const newUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+    const newUser2 = {
+      name: "Jane Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+    const newUser3 = {
+      name: "Mary Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(newUser);
+    const user2 =  userService.createNewUser(newUser2);
+    const user3 =  userService.createNewUser(newUser3);
+
+    userService.deactivateUser(user1.id);
+    userService.deactivateUser(user2.id);
+
+    const sut = userService.getActiveUsers();
+    const result = sut.length;
+
+    expect(result).toEqual(1);
+  });
 
 });

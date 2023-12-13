@@ -26,20 +26,17 @@ class UserService {
 
     getAllUsersByRoleId = (roleId) => {
 
-        console.log("roleid", roleId)
-
         const userRoles = this.userRoleService.getUserRolesByRoleId(roleId);
-        console.log("userRoles", userRoles)
+
         const users = this.getAllUser();
-        console.log("users", users)
+
         let usersByRole = [];
         if (userRoles.length > 0 && users.length > 0) {
             let foundUser;
             userRoles.forEach(userRole => {
-                
+
                 foundUser = users.find(x => x.id === userRole.userId);
 
-                console.log("foundUser", foundUser)
                 if (foundUser) {
                     usersByRole.push(foundUser);
                 }
@@ -47,8 +44,23 @@ class UserService {
 
         }
 
-        console.log("usersByRole", usersByRole)
         return usersByRole;
+    }
+
+    deleteUser = (userId) => {
+        this.user.delete(userId);
+    }
+
+    deactivateUser = (userId) => {
+        this.user.deactivate(userId);
+    }
+
+    activateUser = (userId) => {
+        this.user.activate(userId);
+    }
+
+    getActiveUsers = () => {
+        return this.user.getActiveUsers();
     }
 }
 

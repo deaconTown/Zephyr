@@ -1,13 +1,6 @@
 class User {
 
-    users = [{
-        id: "1",
-        name: "John Doe",
-        email: "jd@email.com",
-        password: "password123",
-        isActive: true,
-        isDeleted: false,
-    }];
+    users = [];
 
     id;
     name;
@@ -40,6 +33,41 @@ class User {
 
     getUserById = (id) => {
         return this.users.find(x => x.id === id);
+    }
+
+    delete = (userId) => {
+
+        let userToDelete = this.users.find(x => x.id === userId);
+        const index = this.users.indexOf(x => x.id === userId);
+
+        userToDelete.isDeleted = true;
+
+        this.users[index] = userToDelete;
+
+    }
+
+    deactivate = (userId) => {
+
+        let userToDeactivate = this.users.find(x => x.id === userId);
+        const index = this.users.indexOf(x => x.id === userId);
+
+        userToDeactivate.isActive = false;
+
+        this.users[index] = userToDeactivate;
+    }
+
+    activate = (userId) => {
+
+        let userToActivate = this.users.find(x => x.id === userId);
+        const index = this.users.indexOf(x => x.id === userId);
+
+        userToActivate.isActive = true;
+
+        this.users[index] = userToActivate;
+    }
+
+    getActiveUsers = () => {
+        return this.users.filter(x => x.isActive === true);
     }
 
 
