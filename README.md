@@ -1,6 +1,36 @@
 # Zephyr
  
+## Getting Started - Docker
+
+To use the Zephyr Application using docker, follow these simple steps:
+
+1. **Clone the Repository:** Use Git to clone the Zephyr repository to your local machine.
  
+    ```bash
+    git clone https://github.com/travelandcode/Zephyr.git
+    ```
+ 
+2. **Navigate to the Project Folder:** Change your current directory to the project folder.
+ 
+    ```bash
+    cd zephyr/
+    ```
+
+3. **Spin up Docker Containers (Docker Compose)**
+
+    ```bash
+    docker compose up -d
+    ```
+    This spins up the following core pieces
+    - Frontend
+    - Backend
+    - Database
+
+    To pull down these containers, run the following command'
+    ```bash
+    docker compose down
+    ```
+
 ## Getting Started - Local (Frontend)
  
 To use the Zephyr Frontend Application, follow these simple steps:
