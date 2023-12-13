@@ -1,28 +1,32 @@
-var express = require('express');
-var router = express.Router();
-const products = require('../services/products')
+let express = require('express');
+let router = express.Router();
+const ProductService = require('../services/products')
+const productService = new ProductService();
 
 router.get('/getall', function(req, res, next) {
-    // const p = {
-    //     "id": 1,
-    //     "merchantId": 1,
-    //     "name": "Satisfaction",
-    //     "unitCost": 1200,
-    //     "stockLevel": 100,
-    //     "imageUrl": "",
-    //     "description": "Rice and Peas with Jerk Chicken",
-    //     "isActive": true,
-    //     "isDeleted": false
-    // }
-
-    // products.createProduct(p);
-
-  res.send(products.getAll());
+  res.send(productService.getAll());
 });
 
 router.post('/createproduct', function(req, res, next){
-    products.createXroduct(req.body);
-    res.send(products.getAll());
-})
+    productService.createProduct(req.body);
+    res.send(productService.getAll());
+});
+
+router.get('/:productId', function(req, res, next){
+    res.send(productService.getProduct(req.params.productId));
+});
+
+router.put('/updateproduct', function(req, res, next){
+    productService.updateProduct(req.body);
+    res.send(productService.getAll());
+});
+
+router.delete('/:productId', function(req, res, next){
+    productService.deleteProduct(req.params.productId)
+});
+
+router.get('/merchant/:merchantId', function(req, res, next){    
+    res.send(productService.getProductsByMerchant(req.params.merchantId));
+});
 
 module.exports = router;

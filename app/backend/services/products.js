@@ -7,13 +7,24 @@ class ProductService{
     }
     
     createProduct = (product) =>{
-        products.createProduct(product);
+        return products.createProduct(product);
+    }
+
+    getProduct = (productId) => {
+        return products.getProduct(productId);
+    }
+
+    updateProduct = (product) => {
+        products.updateProduct(product);
+    }
+
+    deleteProduct = (productId) => {
+        return products.deleteProduct(productId);
+    }
+
+    getProductsByMerchant = (merchantId) => {
+        return products.getProductsByMerchant(merchantId);
     }
 } 
-
-
-// app.get('/api/productService/getAllProducts', (req, res) => {
-//     res.json(products.getAllProducts());
-// });
 
 module.exports = ProductService;
