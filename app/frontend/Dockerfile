@@ -16,19 +16,15 @@ FROM deps as dev
 ENV NODE_ENV=development
 CMD ["npm","run", "start"]
 
-# Production image, copy all the files and run next
+# Production image, copy all the files and run react-scripts
 FROM node:alpine AS production
 WORKDIR /app
 ENV NODE_ENV=production
 
 COPY --from=builder /app/build ./build
+COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
-
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S reactjs -u 1001
-RUN chown -R reactjs:nodejs /app/.next
-USER reactjs
 
 EXPOSE 3000 
 CMD ["npm", "start"]
