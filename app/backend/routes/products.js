@@ -1,28 +1,19 @@
 var express = require('express');
 var router = express.Router();
-const products = require('../services/products')
+const ProductService = require('../services/products')
+const productservice = new ProductService();
 
 router.get('/getall', function(req, res, next) {
-    // const p = {
-    //     "id": 1,
-    //     "merchantId": 1,
-    //     "name": "Satisfaction",
-    //     "unitCost": 1200,
-    //     "stockLevel": 100,
-    //     "imageUrl": "",
-    //     "description": "Rice and Peas with Jerk Chicken",
-    //     "isActive": true,
-    //     "isDeleted": false
-    // }
-
-    // products.createProduct(p);
-
-  res.send(products.getAll());
+  res.send(productservice.getAll());
 });
 
 router.post('/createproduct', function(req, res, next){
-    products.createXroduct(req.body);
-    res.send(products.getAll());
+    productservice.createProduct(req.body);
+    res.send(productservice.getAll());
+})
+
+router.get('/:productId', function(req, res, next){
+    res.send(productservice.getProduct(req.params.productId));
 })
 
 module.exports = router;

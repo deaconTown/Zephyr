@@ -9,40 +9,51 @@ class Products{
         description;
         isActive;
         isDeleted;
-    // constructor(id,merchantId,name,unitCost,stockLevel,imageUrl,description,isActive,isDeleted){
-    //     this.id = id;
-    //     this.merchantId = merchantId;
-    //     this.name = name;
-    //     this.unitCost = unitCost;
-    //     this.stockLevel = stockLevel;
-    //     this.imageUrl = imageUrl;
-    //     this.description = description;
-    //     this.isActive = isActive;
-    //     this.isDeleted = isDeleted;
-    // }
 
     products = [
         {
-            id: 1,
-            merchantId: 1,
-            name: 'Satisfaction',
-            unitCost: 1200,
-            stockLevel: 100,
-            imageUrl: '',
-            description: 'Rice and Peas with Jerk Chicken',
-            isActive: true,
-            isDeleted: false
+            "id": 1,
+            "merchantId": 1,
+            "name": "Satisfaction",
+            "unitCost": 1200,
+            "stockLevel": 100,
+            "imageUrl": "",
+            "description": "Rice and Peas with Jerk Chicken",
+            "isActive": false,
+            "isDeleted": false
         },
         {
-            id: 2,
-            merchantId: 1,
-            name: 'Just Nuff',
-            unitCost: 900,
-            stockLevel: 10,
-            imageUrl: '',
-            description: 'Festival with Jerk Chicken',
-            isActive: true,
-            isDeleted: false
+            "id": 2,
+            "merchantId": 1,
+            "name": "Just Nuff",
+            "unitCost": 900,
+            "stockLevel": 10,
+            "imageUrl": "",
+            "description": "Festival with Jerk Chicken",
+            "isActive": true,
+            "isDeleted": false
+        },
+        {
+            "id": 3,
+            "merchantId": 1,
+            "name": "Satisfaction",
+            "unitCost": 1200,
+            "stockLevel": 100,
+            "imageUrl": "",
+            "description": "Rice and Peas with Jerk Chicken",
+            "isActive": true,
+            "isDeleted": false
+        },
+        {
+            "id": 4,
+            "merchantId": 2,
+            "name": "Meal Deal",
+            "unitCost": 995,
+            "stockLevel": 100,
+            "imageUrl": "",
+            "description": "2 piece fried chicken with fries and a soda",
+            "isActive": true,
+            "isDeleted": false
         }
     ];
     constructor(){
@@ -68,6 +79,10 @@ class Products{
         // if(found){
         //     this.products.push(product);
         // }        
+    }
+
+    getProduct(productId){
+        return this.getAllProducts().filter(prod => prod.id == productId);
     }
 }
 

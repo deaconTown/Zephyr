@@ -9,11 +9,10 @@ class ProductService{
     createProduct = (product) =>{
         products.createProduct(product);
     }
+
+    getProduct = (productId) => {
+        return products.getProduct(productId);
+    }
 } 
-
-
-// app.get('/api/productService/getAllProducts', (req, res) => {
-//     res.json(products.getAllProducts());
-// });
 
 module.exports = ProductService;
