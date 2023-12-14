@@ -1,10 +1,6 @@
 class UserRole {
 
-    userRoles = [{
-        id: "1",
-        roleId: "1",
-        userId: "1"
-    }];
+    userRoles = [];
 
     id;
     roleId;
@@ -17,11 +13,11 @@ class UserRole {
 
     create = (roleId, userId) => {
         const newUserRole = {
-            id: Math.random(),
+            id: this.userRoles.length + 1,
             roleId: roleId,
             userId: userId
         }
-        this.userRoles.push(newUserRole);
+        // this.userRoles.push(newUserRole);
 
         return newUserRole;
     }
