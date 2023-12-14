@@ -18,7 +18,7 @@ const Body = () =>{
         
     };
     return(
-        <div className='grid grid-cols-6 gap-4 mx-3 pt-10 scroll-m-1'>
+        <div className='grid grid-cols-6 gap-4 mx-3 pt-10 scroll-m-1 h-screen'>
            <div className=' container p-2 space-y-6'>
             <Button gradientDuoTone='greenToBlue' className='text-base py-2 w-60' onClick={()=>handleButtonClick('Product')}>Products</Button>
             <Button gradientDuoTone='greenToBlue' className='text-base py-2 w-60' onClick={()=>handleButtonClick('Orders')}>Orders</Button>
