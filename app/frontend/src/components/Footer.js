@@ -5,15 +5,15 @@ import logo from '../assets/Zephyr Logo.png'
 
 const PageFooter = () =>{
     return (
-            <Footer container className='bottom-0 bg-secondary text-white'>
+            <Footer container className='sticky top-[100vh] visible bg-secondary text-white'>
       <div className="w-full border-s-secondary">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
+        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 md:justify-normal">
           <div className='-inset-6'>
             <Footer.Brand
             className='w-full h-full scale-50'
               src={logo}
               alt="Zephyr Logo"
-            />
+            />s
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
@@ -39,8 +39,7 @@ const PageFooter = () =>{
             </div>
           </div>
         </div>
-        <Footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
+        <div className="w-full md:flex sm:items-center sm:justify-between">
           <Footer.Copyright href="#" by="Zephyr™" year={2023}  className='text-black font-semibold' />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <Footer.Icon href="#" icon={BsFacebook} />
