@@ -18,14 +18,14 @@ const Body = () =>{
         
     };
     return(
-        <div className=' block pt-4 md:grid md:grid-cols-3 mx-3 scroll-m-1 lg:grid-cols-6 lg:gap-4'>
-           <div className='flex flex-row space-x-4 p-2 justify-center'>
+        <div className=' block clear-left h-full pt-4 md:grid md:grid-cols-3 mx-3 scroll-m-1 lg:grid-cols-6 lg:gap-2'>
+           <div className='flex flex-row md:block md:space-x-0 md:space-y-4 space-x-4 p-2 justify-center'>
             <Button gradientDuoTone='greenToBlue' className='text-base w-full py-2 ' onClick={()=>handleButtonClick('Product')}>Products</Button>
             <Button gradientDuoTone='greenToBlue' className='text-base w-full py-2 ' onClick={()=>handleButtonClick('Orders')}>Orders</Button>
             <Button gradientDuoTone='greenToBlue' className='text-base w-full py-2 ' onClick={()=>handleButtonClick('Profile')}>Profile</Button>
-           
+            
         </div> 
-           <div className='flex flex-row justify-center p-2 lg:col-span-4'>
+           <div className='flex flex-row justify-center p-2 md:col-span-2 lg:col-span-4'>
          {
          selectCard==='ProductCard' ? <ProductCard /> 
          : selectCard ==='OrdersCard' ?<OrdersCard/> 

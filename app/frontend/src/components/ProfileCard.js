@@ -3,15 +3,15 @@ import React from "react";
 
 const ProfileCard = () => {
     return (
-        <div className="container">
-            <Card className="max-w-6xl p-12 h-[620px]">
-                <form className='flex max-w-md flex-col gap-6'>
+        <div className="flex">
+            <Card className="flex w-screen h-full md:w-full">
+                <form className='flex-col gap-6 space-y-4'>
                     <div className="font-semibold text-2xl underline">
                         User Profile
                     </div>
                     
                     <div className="">
-                        <Avatar size="lg" className="flex justify-end" rounded/>
+                        <Avatar size="lg" className="justify-end" rounded/>
                     </div>
                     <div>
                         <div className="mb-2 block">
@@ -26,7 +26,7 @@ const ProfileCard = () => {
                         </div>
                     </div>
                     <div>
-                        <div className="mb-2 flex justify-between">
+                        <div className="mb-2 md:flex md:space-x-4 justify-between">
                             <div className="">
                                 <Label value="Password" />
                                 <TextInput id="password" type="password" value='Kingston' disabled />

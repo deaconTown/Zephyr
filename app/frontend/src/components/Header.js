@@ -38,7 +38,7 @@ const Header = () => {
         <Navbar.Link className="visible lg:invisible [ text-[17px] ]" onClick={() => {setModalOpen(true); setView('login')}}>Login</Navbar.Link>
         <Navbar.Link className="visible lg:invisible [ text-[17px] ]" onClick={() => {setModalOpen(true); setView('signup')}}>Sign-Up</Navbar.Link>
       </Navbar.Collapse>
-      <div className="hidden md:z-0 invisible lg:visible [ registration-buttons ][ flex flex-row ] ">
+      <div className="overflow-hidden invisible lg:visible [ registration-buttons ][ flex flex-row ] ">
         <Button onClick={() => {setModalOpen(true); setView('login')}} className="[ login-btn ][ w-[150px] ][ bg-gradient-to-r from-[#1c3e35] to-[#247a4d] ]">Login</Button>
         <Button onClick={() => {setModalOpen(true); setView('signup')}} className="[ sign-up-btn ][ w-[150px] ][ ml-2 ][ bg-gradient-to-r from-[#1c3e35] to-[#247a4d] ]">Sign Up</Button>
         {
