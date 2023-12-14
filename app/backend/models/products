@@ -87,7 +87,7 @@ class Products{
        let productToUpdate = this.getProduct(updatedProduct.id);    
        let index = this.products.findIndex(prod => prod.id == updatedProduct.id);
 
-       let update = {...productToUpdate,...updatedProduct}
+       let update = { ...updatedProduct, ...productToUpdate  }
        this.products[index] = update;
 
        return update.id;

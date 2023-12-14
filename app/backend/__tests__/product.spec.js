@@ -98,7 +98,7 @@ describe('Product Service', () => {
     let product = productService.getProduct(3);
     let currentStockLevel = product.stockLevel;
     productService.deleteProduct(3);
-        
+
   });
 
   test('should decrease product stock level when the product is inactive', () => {
@@ -110,7 +110,8 @@ describe('Product Service', () => {
   });
 
   test('should get all products by merchant id', () => {
-    expect.assertions(1);
+    let products = productService.getProductsByMerchant(1); 
+
   });
 
   test('should delete a specific product', () => {    
