@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import logo from '../assets/Zephyr Logo.png'
-import { Avatar, 
-  Button, 
-  //Dropdown,
-   Navbar } from 'flowbite-react';
+import logo from '../assets/logo-lg.png'
+import { Avatar, Button} from 'flowbite-react';
 import LoginModal from './login_modal';
 
 const Header = () => {
@@ -14,38 +11,24 @@ const Header = () => {
     setModalOpen(false)
   }
   return (
-    <Navbar fluid rounded className='bg-secondary h-32 xs:px-2'>
-      <Navbar.Brand >
-        <img src={logo} className="h-12 sm:scale-110" alt="zephyr Logo" />
-      </Navbar.Brand>
-      <div className="flex md:order-2 xs:gap-2">
-        <Avatar alt="User settings" bordered />
-        {/* <Dropdown.Header>
-            <span className="block text-sm">Bonnie Green</span>
-            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
-          </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item> */}
-        <Navbar.Toggle className='hover:text-primary' />
-      </div>
-      <Navbar.Collapse className='bg-white z-50 md:bg-secondary rounded text-base font-semibold  '>
-        <Navbar.Link className="[ text-[17px] ]" href="#">Home</Navbar.Link>
-        <Navbar.Link className="[ text-[17px] ]" href="#">About</Navbar.Link>
-        <Navbar.Link className="[ text-[17px] ]" href="#">Services</Navbar.Link>
-        <Navbar.Link className="visible lg:invisible [ text-[17px] ]" onClick={() => {setModalOpen(true); setView('login')}}>Login</Navbar.Link>
-        <Navbar.Link className="visible lg:invisible [ text-[17px] ]" onClick={() => {setModalOpen(true); setView('signup')}}>Sign-Up</Navbar.Link>
-      </Navbar.Collapse>
-      <div className="overflow-hidden invisible lg:visible [ registration-buttons ][ flex flex-row ] ">
-        <Button onClick={() => {setModalOpen(true); setView('login')}} className="[ login-btn ][ w-[150px] ][ bg-gradient-to-r from-[#1c3e35] to-[#247a4d] ]">Login</Button>
-        <Button onClick={() => {setModalOpen(true); setView('signup')}} className="[ sign-up-btn ][ w-[150px] ][ ml-2 ][ bg-gradient-to-r from-[#1c3e35] to-[#247a4d] ]">Sign Up</Button>
-        {
-          isModalOpen && < LoginModal isModalOpen={isModalOpen} initialView={selectedView} onClose={handleModalClose} />
-        }
-      </div>
-    </Navbar>
+    <div className="[ header ][ bg-secondary ][ h-[150px] ][ flex flex-row ][ px-[20px] ][ justify-between ]">
+        <img src={logo} className="[ scale-[1.4] ][ ml-[40px] ]" alt="Zephyr Logo" />   
+        <div className="[ nav-links ][ flex flex-row ][ my-auto ]">
+            <a className="[ text-[24px] font-[Lobster] text-primary ]" href="/#" active>Home</a>
+            <a className="[ text-[24px] font-[Lobster] text-primary ][ ml-[40px] ]" href="/#">About</a>
+            <a className="[ text-[24px] font-[Lobster] text-primary ][ ml-[40px] ]" href="/#">Services</a>
+            <a className="[ text-[24px] font-[Lobster] text-primary ][ ml-[40px] ]" href="/#">Pricing</a>
+            <a className="[ text-[24px] font-[Lobster] text-primary ][ ml-[40px] ]" href="/#">Contact</a>
+       </div>
+       <div className="[ registration-buttons ][ flex flex-row ][ my-auto ]">
+         <Button color='' onClick={() => {setModalOpen(true); setView('login')}} className="[ login-btn ][ w-[150px] h-[40px] ][ bg-primary text-white ]">Login</Button>
+         <Button color='' onClick={() => {setModalOpen(true); setView('signup')}} className="[ sign-up-btn ][ w-[150px] h-[40px] ][ ml-2 ][ bg-primary text-white ]">Sign Up</Button>
+         {
+           isModalOpen && < LoginModal isModalOpen={isModalOpen} initialView={selectedView} onClose={handleModalClose} />
+         }
+       </div>
+       { false && <Avatar settings bordered rounded /> }  
+    </div>
   );
 }
 export default Header;

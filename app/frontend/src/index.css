@@ -23,6 +23,20 @@
   font-weight: 400;
 }
 
+@font-face {
+  font-family: "Preahvihear";
+  src: local("Preahvihear"),
+    url('./fonts/Preahvihear-Regular.ttf') format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: local("Ubuntu"),
+    url('./fonts/Ubuntu-Regular.ttf') format("truetype");
+  font-weight: 400;
+}
+
 ::-webkit-scrollbar {
   border-radius: 10px;
   width: 6px;
