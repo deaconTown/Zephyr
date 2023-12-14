@@ -86,6 +86,17 @@ class User {
         return activeUsers
     }
 
+    update = (updateUser) => {
+
+        const index = this.users.indexOf(x => x.id === updateUser.id);
+
+        console.log("updateUser",updateUser)
+
+        this.users[index] = updateUser;
+
+        return updateUser;
+    }
+
 
 }
 

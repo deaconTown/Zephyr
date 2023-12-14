@@ -31,7 +31,7 @@ class UserService {
         const users = this.getAllUser();
 
         let usersByRole = [];
-        if (userRoles.length > 0 && users.length > 0) {
+        if ( userRoles && userRoles.length > 0 && users.length > 0) {
             let foundUser;
             userRoles.forEach(userRole => {
 
@@ -77,6 +77,30 @@ class UserService {
 
     getActiveUsers = () => {
         return this.user.getActiveUsers();
+    }
+
+    updateUser = (userId, updatedUser) => {
+        const user = this.user.getUserById(userId);
+        if (user.isDeleted) {
+            return;
+        }
+
+        console.log("userId", userId)
+        console.log("user.id", user.id)
+
+        updatedUser = {
+            id: user.id,
+            name: updatedUser.name ?? user.name,
+            email: updatedUser.email ?? user.email,
+            password: updatedUser.password ?? user.password,
+            location: updatedUser.location ?? user.location,
+            logoUrl: updatedUser.logoUrl ?? user.logoUrl,
+            isActive: user.isActive,
+            isDeleted: user.isDeleted,
+            isEmailVerified: user.isEmailVerified
+        }
+        
+        return this.user.update(updatedUser);
     }
 }
 

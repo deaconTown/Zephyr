@@ -277,13 +277,51 @@ describe('User Service', () => {
 
     const user1 = userService.createNewUser(newUser);
 
-    console.log(user1)
-
     userService.verifyUserEmail(user1.id);
 
     const result = userService.getUserById(user1.id).isEmailVerified;
 
     expect(result).toEqual(true);
+  });
+    
+  test('should update the user name', () => {
+    const oldUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(oldUser);
+
+    const updatedUser = {
+      name: "Frank Doe Poe",
+      email: "fdp@email.com",
+      password: "password2023",
+    }
+
+    const updateUserResult = userService.updateUser(oldUser.id,updatedUser);
+
+    expect(updateUserResult.name).toEqual("Frank Doe Poe");
+  });
+    
+  test('should not update the user id', () => {
+    const oldUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(oldUser);
+
+    const updatedUser = {
+      name: "Frank Doe Poe",
+      email: "fdp@email.com",
+      password: "password2023",
+    }
+
+    const updateUserResult = userService.updateUser(oldUser.id,updatedUser);
+
+    expect(updateUserResult.id).toEqual(user1.id);
   });
 
 });

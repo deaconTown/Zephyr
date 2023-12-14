@@ -1,9 +1,10 @@
 var express = require('express');
 const UserService = require('../services/userService');
+const UserRoleService = require('../services/userRoleService');
 var router = express.Router();
 
-
-const userService = new UserService();
+const userRoleService = new UserRoleService();
+const userService = new UserService(userRoleService);
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -57,6 +58,20 @@ router.patch('/verifyEmail/:id', function (req, res, next) {
 
   userService.verifyUserEmail(userId);
   res.status(204).send();
+});
+
+router.get('/usersByRole/:userTypeId', function (req, res, next) {
+  const userTypeId = req.params.userTypeId;
+
+  const usersByRole = userService.getAllUsersByRoleId(userTypeId);
+  res.send(usersByRole);
+});
+
+router.put('/update', function (req, res, next) {
+  const updatedUserData = req.body
+
+  const updatedUser = userService.updateUser(updatedUserData);
+  res.send(updatedUser);
 });
 
 // router.get('/activeUsers', function (req, res, next) {
