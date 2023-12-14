@@ -67,6 +67,14 @@ class UserService {
         this.user.activate(userId);
     }
 
+    verifyUserEmail = (userId) => {
+        const user = this.user.getUserById(userId);
+        if (user.isDeleted) {
+            return;
+        }
+        this.user.verifyEmail(userId);
+    }
+
     getActiveUsers = () => {
         return this.user.getActiveUsers();
     }

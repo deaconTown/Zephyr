@@ -278,4 +278,23 @@ describe('User Service', () => {
     expect(result).toEqual(1);
   });
 
+    
+  test('should set user email as verified', () => {
+    const newUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(newUser);
+
+    console.log(user1)
+
+    userService.verifyUserEmail(user1.id);
+
+    const result = userService.getUserById(user1.id).isEmailVerified;
+
+    expect(result).toEqual(true);
+  });
+
 });

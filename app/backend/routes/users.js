@@ -45,6 +45,13 @@ router.patch('/activateUser/:id', function (req, res, next) {
   res.status(201).send();
 });
 
+router.patch('/verifyEmail/:id', function (req, res, next) {
+  const userId = req.params.id;
+
+  const user = userService.verifyUserEmail(userId);
+  res.status(201).send();
+});
+
 router.get('/getAllActiveUsers', function (req, res, next) {
   const users = userService.getActiveUsers();
 

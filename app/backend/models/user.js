@@ -67,6 +67,16 @@ class User {
         this.users[index] = userToActivate;
     }
 
+    verifyEmail = (userId) => {
+
+        let userToValidate = this.users.find(x => x.id === userId);
+        const index = this.users.indexOf(x => x.id === userId);
+
+        userToValidate.isEmailVerified = true;
+
+        this.users[index] = userToValidate;
+    }
+
     getActiveUsers = () => {
         console.log("users", this.users)
         console.log("active user", this.users.filter(x => x.isActive === true))
