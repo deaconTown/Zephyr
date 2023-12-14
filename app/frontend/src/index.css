@@ -2,3 +2,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"),
+    url('./fonts/Roboto-Regular.ttf') format("truetype");
+  font-weight: 400;
+}
