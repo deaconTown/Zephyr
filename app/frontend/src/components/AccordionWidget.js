@@ -8,7 +8,7 @@ const AccordionWidget = ({title,description}) => {
                 <Accordion.Title className='hover:bg-accent1 hover:text-accent2 bg-primary text-white focus:ring-secondary'>
                     {title}
                 </Accordion.Title>
-                <Accordion.Content className="bg-secondary font-semibold">
+                <Accordion.Content className="bg-accent2 font-semibold">
                     <div>
                         <p>{description}</p>
                     </div>

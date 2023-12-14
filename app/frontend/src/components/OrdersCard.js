@@ -19,7 +19,7 @@ const OrdersCard = () => {
                     </div>
 
                 ): (
-                    <div className="[ orders-section ][ flex flex-row ]">
+                    <div className="[ orders-section ][ flex flex-row  overflow-auto h-30]">
                         <OrdersHistory />
                         <OrderDetails />
                     </div>
