@@ -22,11 +22,16 @@ router.put('/updateproduct', function(req, res, next){
 });
 
 router.delete('/:productId', function(req, res, next){
-    productService.deleteProduct(req.params.productId)
+    productService.deleteProduct(req.params.productId);
+    res.send(productService.getAll());
 });
 
 router.get('/merchant/:merchantId', function(req, res, next){    
     res.send(productService.getProductsByMerchant(req.params.merchantId));
+});
+
+router.patch('deactivate/:productId', function(req, res, next){    
+    res.send(productService.deactivateProduct(req.params.productId));
 });
 
 module.exports = router;

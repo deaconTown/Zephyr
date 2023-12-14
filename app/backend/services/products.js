@@ -15,7 +15,7 @@ class ProductService{
     }
 
     updateProduct = (product) => {
-        products.updateProduct(product);
+        return products.updateProduct(product);
     }
 
     deleteProduct = (productId) => {
@@ -24,6 +24,10 @@ class ProductService{
 
     getProductsByMerchant = (merchantId) => {
         return products.getProductsByMerchant(merchantId);
+    }
+
+    deactivateProduct = (productId) => {
+        return products.deactivateProduct(productId);
     }
 } 
 
