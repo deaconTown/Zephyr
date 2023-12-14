@@ -193,25 +193,14 @@ describe('User Service', () => {
       email: "jd@email.com",
       password: "password123",
     }
-    const newUser2 = {
-      name: "Jane Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
-    const newUser3 = {
-      name: "Mary Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
 
     const user1 = userService.createNewUser(newUser);
-    const user2 =  userService.createNewUser(newUser2);
-    const user3 =  userService.createNewUser(newUser3);
 
     userService.deleteUser(user1.id);
-    const result = userService.getUserById(user1.id).isDeleted;
+    const result = userService.getAllUser();
+    const actualResult = result[0].isDeleted;
 
-    expect(result).toEqual(true);
+    expect(actualResult).toEqual(true);
   });
 
   

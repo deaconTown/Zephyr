@@ -13,8 +13,6 @@ class User {
     isEmailVerified;
 
     constructor() {
-        this.isActive = true;
-        this.isDeleted = false;
     }
 
 
@@ -82,7 +80,10 @@ class User {
         console.log("active user", this.users.filter(x => x.isActive === true))
         console.log("delete filtered user", this.users.filter(x => x.isDeleted === true))
         console.log("delete an active filtered user", this.users.filter(x => x.isActive === true && x.isDeleted === false))
-        return this.users.filter(x => x.isActive === true && x.isDeleted === false);
+        const activeUsers = this.users.filter(x => x.isActive === true && x.isDeleted === false);
+        console.log("activeUsers", activeUsers)
+
+        return activeUsers
     }
 
 

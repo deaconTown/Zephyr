@@ -8,7 +8,14 @@ const userService = new UserService();
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   const users = userService.getAllUser();
-  res.send(users);
+  if(users.length > 0)
+  {
+    res.send(users);
+
+  }
+  else{
+    res.status(404).send({errorMessage: "No user found"})
+  }
 });
 
 router.post('/create', function (req, res, next) {
@@ -27,37 +34,43 @@ router.get('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
   const userId = req.params.id;
 
-  const user = userService.deleteUser(userId);
-  res.status(201).send();
+  userService.deleteUser(userId);
+  res.status(204).send();
 });
 
 router.patch('/deactivateUser/:id', function (req, res, next) {
   const userId = req.params.id;
 
-  const user = userService.deactivateUser(userId);
-  res.status(201).send();
+  userService.deactivateUser(userId);
+  res.status(204).send();
 });
 
 router.patch('/activateUser/:id', function (req, res, next) {
   const userId = req.params.id;
 
-  const user = userService.activateUser(userId);
-  res.status(201).send();
+  userService.activateUser(userId);
+  res.status(204).send();
 });
 
 router.patch('/verifyEmail/:id', function (req, res, next) {
   const userId = req.params.id;
 
-  const user = userService.verifyUserEmail(userId);
-  res.status(201).send();
+  userService.verifyUserEmail(userId);
+  res.status(204).send();
 });
 
-router.get('/getAllActiveUsers', function (req, res, next) {
-  const users = userService.getActiveUsers();
+// router.get('/activeUsers', function (req, res, next) {
+//   const users = userService.getActiveUsers();
 
-  console.log(users)
-  res.send(users);
-});
+//   console.log(users)
+//   if(users.length > 0)
+//   {
+//     res.send(users);
+//   }
+//   else{
+//     res.status(404).send({errorMessage: "No active user found"})
+//   }
+// });
 
 
 module.exports = router;
