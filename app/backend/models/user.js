@@ -19,9 +19,10 @@ class User {
 
 
     create = (newUser) => {
-        newUser.id = Math.random();
+        newUser.id = Math.random().toString(36).substr(2, 9);
         newUser.isActive = true;
         newUser.isDeleted = false;
+        newUser.isEmailVerified = false;
         this.users.push(newUser);
 
         return newUser;
@@ -32,7 +33,7 @@ class User {
     }
 
     getUserById = (id) => {
-        return this.users.find(x => x.id === id);
+        return this.users.find(x => x.id === id && x.isDeleted === false);
     }
 
     delete = (userId) => {
@@ -67,7 +68,11 @@ class User {
     }
 
     getActiveUsers = () => {
-        return this.users.filter(x => x.isActive === true);
+        console.log("users", this.users)
+        console.log("active user", this.users.filter(x => x.isActive === true))
+        console.log("delete filtered user", this.users.filter(x => x.isDeleted === true))
+        console.log("delete an active filtered user", this.users.filter(x => x.isActive === true && x.isDeleted === false))
+        return this.users.filter(x => x.isActive === true && x.isDeleted === false);
     }
 
 

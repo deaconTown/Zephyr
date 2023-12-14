@@ -52,10 +52,18 @@ class UserService {
     }
 
     deactivateUser = (userId) => {
+        const user = this.user.getUserById(userId);
+        if (user.isDeleted) {
+            return;
+        }
         this.user.deactivate(userId);
     }
 
     activateUser = (userId) => {
+        const user = this.user.getUserById(userId);
+        if (user.isDeleted) {
+            return;
+        }
         this.user.activate(userId);
     }
 
