@@ -5,7 +5,7 @@ import logo from '../assets/Zephyr Logo.png'
 
 const PageFooter = () =>{
     return (
-            <Footer container className='fixed bottom-0 bg-secondary text-white'>
+            <Footer container className='bottom-0 bg-secondary text-white'>
       <div className="w-full border-s-secondary">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className='-inset-6'>
