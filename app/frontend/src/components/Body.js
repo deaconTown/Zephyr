@@ -25,7 +25,7 @@ const Body = () =>{
             <Button gradientDuoTone='greenToBlue' className='text-base py-2 w-60' onClick={()=>handleButtonClick('Profile')}>Profile</Button>
            
         </div> 
-           <div className='container p-2 col-span-4'>
+           <div className='container overflow-auto p-2 col-span-4 max-h-[500px]'>
          {
          selectCard==='ProductCard' ? <ProductCard /> 
          : selectCard ==='OrdersCard' ?<OrdersCard/> 
