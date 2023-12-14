@@ -17,13 +17,24 @@ class User {
 
 
     create = (newUser) => {
-        newUser.id = this.users.length + 1;
-        newUser.isActive = true;
-        newUser.isDeleted = false;
-        newUser.isEmailVerified = false;
-        this.users.push(newUser);
+        //check if user email exist 
 
-        return newUser;
+        const foundUserIndex = this.users.findIndex(x => x.email === newUser.email);
+
+        if (foundUserIndex >= 0) {
+            //throw exception
+            return;
+        }
+        else {
+            newUser.id = this.users.length + 1;
+            newUser.isActive = true;
+            newUser.isDeleted = false;
+            newUser.isEmailVerified = false;
+            this.users.push(newUser);
+
+            return newUser;
+        }
+
     }
 
     getAll = () => {

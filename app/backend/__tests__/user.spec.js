@@ -48,7 +48,7 @@ describe('User Service', () => {
     }
     const newUser2 = {
       name: "Jane Doe",
-      email: "jd@email.com",
+      email: "ja@email.com",
       password: "password123",
     }
 
@@ -70,7 +70,7 @@ describe('User Service', () => {
     }
     const newUser2 = {
       name: "Jane Doe",
-      email: "jd@email.com",
+      email: "jd2@email.com",
       password: "password123",
     }
 
@@ -95,12 +95,12 @@ describe('User Service', () => {
     }
     const newUser2 = {
       name: "Jane Doe",
-      email: "jd@email.com",
+      email: "jd2@email.com",
       password: "password123",
     }
     const newUser3 = {
       name: "Mary Doe",
-      email: "jd@email.com",
+      email: "jd3@email.com",
       password: "password123",
     }
 
@@ -144,12 +144,12 @@ describe('User Service', () => {
     }
     const newUser2 = {
       name: "Jane Doe",
-      email: "jd@email.com",
+      email: "jd2@email.com",
       password: "password123",
     }
     const newUser3 = {
       name: "Mary Doe",
-      email: "jd@email.com",
+      email: "jd3@email.com",
       password: "password123",
     }
 
@@ -245,12 +245,12 @@ describe('User Service', () => {
     }
     const newUser2 = {
       name: "Jane Doe",
-      email: "jd@email.com",
+      email: "jd2@email.com",
       password: "password123",
     }
     const newUser3 = {
       name: "Mary Doe",
-      email: "jd@email.com",
+      email: "jd3@email.com",
       password: "password123",
     }
 
@@ -324,6 +324,28 @@ describe('User Service', () => {
     const updateUserResult = userService.updateUser(updatedUser);
 
     expect(updateUserResult.id).toEqual(user1.id);
+  });
+
+  test('should not create multiple users with same email address', () => {
+    const newUser = {
+      name: "Frank Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+    const newUser2 = {
+      name: "Jane Doe",
+      email: "jd@email.com",
+      password: "password123",
+    }
+
+    const user1 = userService.createNewUser(newUser);
+    const user2 = userService.createNewUser(newUser2);
+
+    const users = userService.getAllUser();
+
+    const result = users.length;
+
+    expect(result).toEqual(1);
   });
 
 });
