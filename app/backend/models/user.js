@@ -17,7 +17,7 @@ class User {
 
 
     create = (newUser) => {
-        newUser.id = Math.random().toString(36).substr(2, 9);
+        newUser.id = this.users.length + 1;
         newUser.isActive = true;
         newUser.isDeleted = false;
         newUser.isEmailVerified = false;
@@ -31,13 +31,15 @@ class User {
     }
 
     getUserById = (id) => {
-        return this.users.find(x => x.id === id && x.isDeleted === false);
+        const foundUser = this.users.find(x => x.id == id && x.isDeleted == false);
+
+        return foundUser;
     }
 
     delete = (userId) => {
 
         let userToDelete = this.users.find(x => x.id === userId);
-        const index = this.users.indexOf(x => x.id === userId);
+        const index = this.users.findIndex(x => x.id === userId);
 
         userToDelete.isDeleted = true;
 
@@ -48,7 +50,7 @@ class User {
     deactivate = (userId) => {
 
         let userToDeactivate = this.users.find(x => x.id === userId);
-        const index = this.users.indexOf(x => x.id === userId);
+        const index = this.users.findIndex(x => x.id === userId);
 
         userToDeactivate.isActive = false;
 
@@ -58,7 +60,7 @@ class User {
     activate = (userId) => {
 
         let userToActivate = this.users.find(x => x.id === userId);
-        const index = this.users.indexOf(x => x.id === userId);
+        const index = this.users.findIndex(x => x.id === userId);
 
         userToActivate.isActive = true;
 
@@ -68,7 +70,7 @@ class User {
     verifyEmail = (userId) => {
 
         let userToValidate = this.users.find(x => x.id === userId);
-        const index = this.users.indexOf(x => x.id === userId);
+        const index = this.users.findIndex(x => x.id === userId);
 
         userToValidate.isEmailVerified = true;
 
@@ -88,13 +90,12 @@ class User {
 
     update = (updateUser) => {
 
-        const index = this.users.indexOf(x => x.id === updateUser.id);
-
-        console.log("updateUser",updateUser)
+        const updatedUserId = updateUser.id;
+        const index = this.users.findIndex(x => x.id === updatedUserId);
 
         this.users[index] = updateUser;
 
-        return updateUser;
+        return this.users[index];
     }
 
 

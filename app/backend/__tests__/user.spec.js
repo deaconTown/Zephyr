@@ -10,8 +10,8 @@ describe('User Service', () => {
   let customerRoleId;
   merchantRoleId = "1";
   customerRoleId = "2";
-  
-  beforeEach(async() => {
+
+  beforeEach(async () => {
 
     // const module = await Test.createTestingModule({
     //   providers: [UserRoleService]
@@ -105,8 +105,8 @@ describe('User Service', () => {
     }
 
     const user1 = userService.createNewUser(newUser);
-    const user2 =  userService.createNewUser(newUser2);
-    const user3 =  userService.createNewUser(newUser3);
+    const user2 = userService.createNewUser(newUser2);
+    const user3 = userService.createNewUser(newUser3);
 
     const newUserRole1 = {
       roleId: merchantRoleId,
@@ -154,8 +154,8 @@ describe('User Service', () => {
     }
 
     const user1 = userService.createNewUser(newUser);
-    const user2 =  userService.createNewUser(newUser2);
-    const user3 =  userService.createNewUser(newUser3);
+    const user2 = userService.createNewUser(newUser2);
+    const user3 = userService.createNewUser(newUser3);
 
     const newUserRole1 = {
       roleId: customerRoleId,
@@ -176,7 +176,7 @@ describe('User Service', () => {
       newUserRole1,
       newUserRole2,
       newUserRole3,
-      
+
     ]
 
     jest.spyOn(userRoleService, 'getUserRolesByRoleId').mockImplementation((customerRoleId) => userRoles);
@@ -203,7 +203,7 @@ describe('User Service', () => {
     expect(actualResult).toEqual(true);
   });
 
-  
+
   test('should set user as inActive', () => {
     const newUser = {
       name: "Frank Doe",
@@ -218,8 +218,8 @@ describe('User Service', () => {
 
     expect(result).toEqual(false);
   });
-  
-  
+
+
   test('should set user as active', () => {
     const newUser = {
       name: "Frank Doe",
@@ -236,7 +236,7 @@ describe('User Service', () => {
 
     expect(result).toEqual(true);
   });
-  
+
   test('should get all active users only', () => {
     const newUser = {
       name: "Frank Doe",
@@ -255,8 +255,8 @@ describe('User Service', () => {
     }
 
     const user1 = userService.createNewUser(newUser);
-    const user2 =  userService.createNewUser(newUser2);
-    const user3 =  userService.createNewUser(newUser3);
+    const user2 = userService.createNewUser(newUser2);
+    const user3 = userService.createNewUser(newUser3);
 
     userService.deactivateUser(user1.id);
     userService.deactivateUser(user2.id);
@@ -267,7 +267,7 @@ describe('User Service', () => {
     expect(result).toEqual(1);
   });
 
-    
+
   test('should set user email as verified', () => {
     const newUser = {
       name: "Frank Doe",
@@ -283,7 +283,7 @@ describe('User Service', () => {
 
     expect(result).toEqual(true);
   });
-    
+
   test('should update the user name', () => {
     const oldUser = {
       name: "Frank Doe",
@@ -294,16 +294,17 @@ describe('User Service', () => {
     const user1 = userService.createNewUser(oldUser);
 
     const updatedUser = {
+      id: user1.id,
       name: "Frank Doe Poe",
       email: "fdp@email.com",
       password: "password2023",
     }
 
-    const updateUserResult = userService.updateUser(oldUser.id,updatedUser);
+    const updateUserResult = userService.updateUser(updatedUser);
 
     expect(updateUserResult.name).toEqual("Frank Doe Poe");
   });
-    
+
   test('should not update the user id', () => {
     const oldUser = {
       name: "Frank Doe",
@@ -314,12 +315,13 @@ describe('User Service', () => {
     const user1 = userService.createNewUser(oldUser);
 
     const updatedUser = {
+      id: user1.id,
       name: "Frank Doe Poe",
       email: "fdp@email.com",
       password: "password2023",
     }
 
-    const updateUserResult = userService.updateUser(oldUser.id,updatedUser);
+    const updateUserResult = userService.updateUser(updatedUser);
 
     expect(updateUserResult.id).toEqual(user1.id);
   });

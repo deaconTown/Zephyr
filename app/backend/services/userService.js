@@ -79,14 +79,12 @@ class UserService {
         return this.user.getActiveUsers();
     }
 
-    updateUser = (userId, updatedUser) => {
-        const user = this.user.getUserById(userId);
+    updateUser = (updatedUser) => {
+        const user = this.user.getUserById(updatedUser.id);
+
         if (user.isDeleted) {
             return;
         }
-
-        console.log("userId", userId)
-        console.log("user.id", user.id)
 
         updatedUser = {
             id: user.id,
