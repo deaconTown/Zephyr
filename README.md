@@ -100,3 +100,25 @@ The backend application should now be up and running on your local machine on `h
     npm test
     ```
 
+
+## Getting Started - Prisma 
+To get the Zephyr database up and running, follow these steps:
+ 
+ 
+1. **Follow backend set steps:** Follow and complete steps 1 - 4 for **Getting Started - Local (Backend)** above.
+ 
+2. **Evironment variables:** Set the `DATABASE_URL` to the database connection string in a .env file in the backend directory.
+ 
+3. **Start docker** Get docker desktop up and running the run the following command:
+ 
+    ```bash
+    docker compose up -d
+    ```
+ 
+4. **Check that the database exists:** Open Microsoft SQL Server Management Studo and check that the `zephyr` database exists with its tables. If it was found, run the following command:
+
+    ```bash
+    npx prisma migrate dev --name init
+    ```
+see [Prisma Site](https://www.prisma.io/docs/getting-started/quickstart) for more.
+
