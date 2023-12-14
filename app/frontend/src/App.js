@@ -5,7 +5,7 @@ import Body from './components/Body';
 
 function App() {
   return (
-    <div className='overflow-x-hidden'>
+    <div className='overflow-auto min-h-screen'>
       <Header/>
       <Body/>
       <Footer/>

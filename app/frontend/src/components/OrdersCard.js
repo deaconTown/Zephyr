@@ -9,7 +9,7 @@ const OrdersCard = () => {
     const [isEmpty, setEmpty] = useState(true)
     const orders = 1
     return(
-        <div className="w-full flex flex-col px-[40px] ">
+        <div className="w-full flex flex-col md:px-[40px] ">
             {
                 orders === 0 ? (
                     <div className="[ no-orders-section ]">
@@ -19,7 +19,7 @@ const OrdersCard = () => {
                     </div>
 
                 ): (
-                    <div className="[ orders-section ][ flex flex-row ]">
+                    <div className="[ orders-section ][ flex flex-row  overflow-auto h-30]">
                         <OrdersHistory />
                         <OrderDetails />
                     </div>
