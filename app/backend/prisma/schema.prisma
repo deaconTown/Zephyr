@@ -11,12 +11,70 @@ datasource db {
 }
 
 model User {
-  id           Int     @id
-  emailAddress String  @unique
-  name         String
-  password     String
-  location     String?
-  logoUrl      String?
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  name      String
+  password  String
+  location  String?
+  logoUrl   String?
+  isActive  Boolean    @default(true)
+  isDeleted Boolean    @default(false)
+  userRoles UserRole[]
+}
+
+model Role {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  isActive    Boolean    @default(true)
+  isDeleted   Boolean    @default(false)
+  userRoles   UserRole[]
+}
+
+model UserRole {
+  id     Int  @id @default(autoincrement())
+  roleId Int
+  userId Int
+  role   Role @relation(fields: [roleId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model OrderStatus {
+  id        Int     @id @default(autoincrement())
+  name      String
+  isActive  Boolean @default(true)
+  isDeleted Boolean @default(false)
+}
+
+model Order {
+  id            Int            @id @default(autoincrement())
+  customerId    Int
+  merchantId    Int
+  statusId      Int
+  totalCost     Int
+  productOrders ProductOrder[]
+}
+
+model ProductOrder {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id            Int            @id @default(autoincrement())
+  merchantId    Int
+  name          String
+  unitCost      Int
+  stockLevel    Int
+  imageUrl      String?
+  description   String?
+  isActive      Boolean        @default(true)
+  isDeleted     Boolean        @default(false)
+  productOrders ProductOrder[]
 }
 
 // model Post {
