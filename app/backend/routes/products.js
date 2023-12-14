@@ -30,7 +30,7 @@ router.get('/merchant/:merchantId', function(req, res, next){
     res.send(productService.getProductsByMerchant(req.params.merchantId));
 });
 
-router.patch('deactivate/:productId', function(req, res, next){    
+router.patch('/deactivate/:productId', function(req, res, next){    
     res.send(productService.deactivateProduct(req.params.productId));
 });
 
