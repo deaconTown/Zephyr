@@ -3,7 +3,7 @@ import { faBan, faBell, faCheck, faCircleCheck, faMobile } from '@fortawesome/fr
 
 function OrdersHistory(){
     return(
-        <div id="orders-history" className="[ orders-history ][ border-2 border-solid ][ rounded-[10px] ][ h-[750px] w-[400px] ][ px-[20px] py-[30px] ]">
+        <div id="orders-history" className="[ orders-history ][ border-2 border-solid ][ rounded-[10px] ][ h-[750px] phone:w-[340px] phone:mx-auto ][ px-[20px] phone:px-[10px] py-[30px] ]">
             <div className="[ text-center ][ text-[28px] font-[Lobster] text-[#404040] ]">Orders History</div>
             <div className="[ orders-container ][ h-[620px] ][ overflow-y-scroll ][ mt-[20px] ]">
             <div className="[ order ][ border-b ][ w-full h-[100px] ][ rounded-[10px] ][ bg-[#F0F0F0] ][ flex justify-between ]">

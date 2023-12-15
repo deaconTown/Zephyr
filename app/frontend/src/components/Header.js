@@ -11,7 +11,7 @@ const Header = () => {
     setModalOpen(false)
   }
   return (
-    <div className="[ header ][ bg-secondary ][ h-[150px] ][ flex flex-row ][ px-[20px] ][ justify-between ]">
+    <div className="[ header ][ bg-secondary ][ h-[150px] ][ flex flex-row ][ px-[20px] ][ justify-between ][ md:visible phone:hidden ]">
         <img src={logo} className="[ scale-[1.4] ][ ml-[40px] ]" alt="Zephyr Logo" />   
         <div className="[ nav-links ][ flex flex-row ][ my-auto ]">
             <a className="[ text-[24px] font-[Lobster] text-primary ]" href="/#" active>Home</a>

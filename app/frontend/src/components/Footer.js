@@ -6,7 +6,7 @@ import lynk from '../assets/lynk.png'
 
 const PageFooter = () =>{
     return (
-      <div  className="[ footer ][ bg-secondary ][ h-[400px] w-screen bottom-0 overflow-hidden mt-2 ][ px-[20px] py-[10px] ][ text-white ][ flex flex-col ]">
+      <div  className="[ footer ][ bg-secondary ][ h-[400px] w-screen bottom-0 overflow-hidden mt-2 ][ px-[20px] py-[10px] ][ text-white ][ flex flex-col ][ md:visible phone:hidden ]">
         <div className='[ footer-top ][ flex flex-row ]'>
           <div className="[ logo-container ][ w-[350px] ]">
             <img className="[ logo-img ][ scale-[0.75] ]" src={logo} alt="Zephyr Logo" />
