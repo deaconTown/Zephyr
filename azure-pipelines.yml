@@ -64,7 +64,14 @@ steps:
       archiveFile: '$(Build.ArtifactStagingDirectory)/backend/backend.zip'
       replaceExistingArchive: true
     displayName: 'Backend Archive Build Artifacts'
-    
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+  
+  
   - script: |
       # List the items in the current directory
       ls -al
@@ -81,6 +88,18 @@ steps:
   
       echo "File path set to: $frontendDockerFilePath"
     displayName: 'Set Frontend Docker File Path'
+
+  
+  - task: Docker@2
+    displayName: Build and push an image to container registry for frontend
+    inputs:
+      command: buildAndPush
+      repository: '$(frontendImageRepository)'
+      dockerfile: $(frontendDockerFilePath)
+      containerRegistry: $(dockerRegistryServiceConnection)
+      tags: |
+        $(tag)
+  
   
   - script: |
       # List the items in the current directory
@@ -98,24 +117,7 @@ steps:
   
       echo "File path set to: $backendDockerFilePath"
     displayName: 'Set Backend Docker File Path'
-  
-  - task: Docker@2
-    displayName: Build and push an image to container registry for frontend
-    inputs:
-      command: buildAndPush
-      repository: '$(frontendImageRepository)'
-      dockerfile: $(frontendDockerFilePath)
-      containerRegistry: $(dockerRegistryServiceConnection)
-      tags: |
-        $(tag)
-  
-  
-  
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
+
   
   - task: Docker@2
     displayName: Build and push an image to container registry for backend
