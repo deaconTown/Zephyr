@@ -45,7 +45,7 @@ class UserService {
     }
 
     getAllUser = async () => {
-        console.log(`entered getAllUser method`)
+        console.log(`entered getAllUser method in UserService`)
 
         // let roles = [];
 
@@ -129,7 +129,7 @@ class UserService {
                 throw new Error("There was an issue fetching all users")
             }
                 
-
+            console.log('attempting to find all users with the user roles found')
             if (userRoles && userRoles.length > 0 && users.length > 0) {
                 let foundUser;
                 console.log('iterating through each userRole');

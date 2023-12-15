@@ -51,7 +51,7 @@ class UserRoleService {
     }
 
     getUserRolesByRoleId = async (roleId) => {
-        console.log('entered test getUserRolesByRoleId method in UserRoleService');
+        console.log('entered getUserRolesByRoleId method in UserRoleService');
         try{
             console.log(`attempting to get user roles by role id: ${roleId}`);
             const userRoles = await this.userRoleRepository.getUserRolesByRoleId(roleId);
