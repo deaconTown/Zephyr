@@ -1,12 +1,17 @@
-import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
+import { Button, Checkbox, Label, Modal, TextInput, Toast} from 'flowbite-react';
 import { useState } from 'react';
 import Logo from '../assets/logo.png'
+import {HiX} from 'react-icons/hi'
+
 
 function LoginModal({initialView,isModalOpen, onClose}) {
   const [openModal, setOpenModal] = useState(isModalOpen);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('')
+  const [password, setPassword] = useState('')
   const [currentView, showView] = useState(initialView)
+  const [toast,showToast] = useState(false)
+  const [successfulLogin,setSuccessfulLogin] = useState(false)
 
   function setView(view){
     showView(view)
@@ -16,12 +21,100 @@ function LoginModal({initialView,isModalOpen, onClose}) {
     setOpenModal(false)
     setEmail('')
     setName('')
+    setPassword('')
     onClose()
   }
 
+  function handleToast(state){
+    showToast(true)
+    setSuccessfulLogin(state)
+  }
+
+  const handleLogin = () => {
+    // Ensure that the request is only sent when all required fields are filled
+    if (email && password) {
+      // Define the data object to be sent in the request body
+      const data = {
+        email: email,
+        password: password,
+      };
+
+      // Make a POST request using the fetch API
+      fetch('http://localhost:3001/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then(response => {
+          console.log(response.status)
+          if(response.status === 200){
+            localStorage.setItem("activeUser",JSON.stringify("some User"))
+            handleToast(true)
+            onCloseModal()
+          }
+          else{
+            handleToast(false)
+          }
+        })
+        .catch(error => {
+          // Handle errors
+          console.error('Error:', error);
+        });
+    }
+  };
+
+  const handleSignUp = () => {
+    // Ensure that the request is only sent when all required fields are filled
+    if (name && email && password) {
+      // Define the data object to be sent in the request body
+      const data = {
+        name: name,
+        email: email,
+        password: password,
+      };
+
+      // Make a POST request using the fetch API
+      fetch('http://localhost:3001/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Handle the response data as needed
+          console.log('Success:', data);
+          onCloseModal()
+        })
+        .catch(error => {
+          // Handle errors
+          console.error('Error:', error);
+        });
+    }
+  };
   return (
     <>
+      {
+          toast &&  
+          (
+            !successfulLogin &&
+            (
+              <Toast className='z-[105] absolute top-[60px] right-[40px] ]'>
+              <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200">
+              <HiX className="h-5 w-5" />
+              </div>
+              <div className="ml-3 text-sm font-normal">Unsuccessful Login</div>
+              <Toast.Toggle onClick={()=>{showToast(false)}} />
+              </Toast>
+            )
+           
+          )
+      }
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
+        
         <Modal.Header />
         <Modal.Body>
           <div className="[ modal-body ][ space-y-3 ]">
@@ -96,7 +189,7 @@ function LoginModal({initialView,isModalOpen, onClose}) {
               <div className="[ mb-2 block ]">
                 <Label htmlFor="password" value="Password" />
               </div>
-              <TextInput id="password" type="password" required />
+              <TextInput id="password" value={password} onChange={(event) => setPassword(event.target.value)} type="password" required />
             </div>
             {
                 currentView === 'login' && (
@@ -114,10 +207,10 @@ function LoginModal({initialView,isModalOpen, onClose}) {
             <div className="w-full">
                 {
                     currentView === 'login' ? (
-                        <Button color='' fullSized className='[ login-btn ][ bg-primary hover:bg-[#8CC09F] ][ text-white hover:text-[#000000] ]'>Login</Button>
+                        <Button onClick={() => {handleLogin()}} color='' fullSized className='[ login-btn ][ bg-primary hover:bg-[#8CC09F] ][ text-white hover:text-[#000000] ]'>Login</Button>
                     ):
                     (
-                        <Button color='' fullSized className='[ login-btn ][ bg-primary hover:bg-[#8CC09F] ][ text-white hover:text-[#000000] ]'>Sign Up</Button>
+                        <Button onClick={() => {handleSignUp()}} color='' fullSized className='[ login-btn ][ bg-primary hover:bg-[#8CC09F] ][ text-white hover:text-[#000000] ]'>Sign Up</Button>
                     )
                 }
             </div>
