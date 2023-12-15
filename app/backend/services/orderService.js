@@ -42,7 +42,7 @@ class OrderService{
         return result;
     }
     fetchOrdersByCustomerId = async (customerId) =>{
-        console.log(`OrderService: Enter fetchOrdersByCustomerId method with params: ${{customerId}}`)
+        console.log(`OrderService: Enter fetchOrdersByCustomerId method with params: ${customerId}`)
         let result = null;
         try {
             console.log("Attempting to fetch orders")
@@ -54,7 +54,23 @@ class OrderService{
         } catch (error) {
             console.error(error);
         }
-        console.log(`OrderService: Exit fetchOrdersByCustomerId method ${{result}}`)
+        console.log(`OrderService: Exit fetchOrdersByCustomerId method ${result}}`)
+        return result;
+    }
+    fetchOrdersByMerchantId = async (customerId) =>{
+        console.log(`OrderService: Enter fetchOrdersByMerchantId method with params: ${customerId}`)
+        let result = null;
+        try {
+            console.log("Attempting to fetch orders")
+            const response = await this.orderRepository.fetchOrdersByCustomerId(customerId)
+            if(response == null)
+                throw new Error(`There is an issue fetching order: ${response}`)
+            console.log(`Order retrieved successfully`)
+            result = response;
+        } catch (error) {
+            console.error(error);
+        }
+        console.log(`OrderService: Exit fetchOrdersByMerchantId method ${{result}}`)
         return result;
     }
 }
