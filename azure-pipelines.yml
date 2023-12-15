@@ -14,8 +14,8 @@ variables:
   frontendImageRepository: 'zephyr'
   backendImageRepository: 'zephyr'
   containerRegistry: 'devdockerreg01.azurecr.io'
-  bdockerfilePath: '**/backend/Dockerfile'
-  fdockerfilePath: '**/frontend/Dockerfile'
+  bdockerfilePath: 'backend**/Dockerfile'
+  fdockerfilePath: 'frontend**/Dockerfile'
   tag: '$(Build.BuildId)'
 
 pool:
@@ -64,13 +64,31 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/backend/backend.zip'
     replaceExistingArchive: true
   displayName: 'Archive Build Artifacts'
+  
+- script: |
+    # List the items in the current directory
+    ls -al
+    
+    cd app/
+    ls -al
+    
+    cd frontend/
+    ls -al
+
+    filePath="app/frontend/Dockerfile"
+
+    echo "##vso[task.setvariable variable=FilePath]$filePath"
+
+    echo "File path set to: $filePath"
+  displayName: 'Set File Path'
+
 
 - task: Docker@2
   displayName: Build and push an image to container registry for frontend
   inputs:
     command: buildAndPush
-    repository: $(frontendImageRepository)
-    dockerfile: $(fdockerfilePath)
+    repository: '$(System.DefaultWorkingDirectory)/$(fdockerfilePath)'
+    dockerfile: $(filePath)
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       $(tag)
@@ -88,7 +106,7 @@ steps:
   inputs:
     command: buildAndPush
     repository: $(backendImageRepository)
-    dockerfile: $(bdockerfilePath)
+    dockerfile: '$(System.DefaultWorkingDirectory)/$(bdockerfilePath)'
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       $(tag)
