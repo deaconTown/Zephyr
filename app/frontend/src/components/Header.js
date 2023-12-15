@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../assets/logo-lg.png'
 import { Avatar, Button} from 'flowbite-react';
 import LoginModal from './login_modal';
@@ -6,6 +6,12 @@ import LoginModal from './login_modal';
 const Header = () => {
   const [ isModalOpen, setModalOpen ] = useState(false)
   const [ selectedView, setView ] = useState("")
+  let user = ""
+
+  useEffect(() =>{
+    let activeUser = localStorage.getItem("activeUser") || ""
+    user = JSON.parse(activeUser) 
+  },[user])
 
   const handleModalClose = () => {
     setModalOpen(false)
@@ -21,13 +27,21 @@ const Header = () => {
             <a className="[ text-[24px] font-[Lobster] text-primary ][ ml-[40px] ]" href="/#">Contact</a>
        </div>
        <div className="[ registration-buttons ][ flex flex-row ][ my-auto ]">
-         <Button color='' onClick={() => {setModalOpen(true); setView('login')}} className="[ login-btn ][ w-[150px] h-[40px] ][ bg-primary text-white ]">Login</Button>
-         <Button color='' onClick={() => {setModalOpen(true); setView('signup')}} className="[ sign-up-btn ][ w-[150px] h-[40px] ][ ml-2 ][ bg-primary text-white ]">Sign Up</Button>
+        {
+           (user === "") && (
+            <div className="[ registration-buttons ][ flex flex-row ][ my-auto ]">
+              <Button color='' onClick={() => {setModalOpen(true); setView('login')}} className="[ login-btn ][ w-[150px] h-[40px] ][ bg-primary text-white ]">Login</Button>
+              <Button color='' onClick={() => {setModalOpen(true); setView('signup')}} className="[ sign-up-btn ][ w-[150px] h-[40px] ][ ml-2 ][ bg-primary text-white ]">Sign Up</Button>
+            </div>
+              
+            )
+        }
+         
          {
            isModalOpen && < LoginModal isModalOpen={isModalOpen} initialView={selectedView} onClose={handleModalClose} />
          }
        </div>
-       { false && <Avatar settings bordered rounded /> }  
+       { user && <Avatar settings bordered rounded /> }  
     </div>
   );
 }

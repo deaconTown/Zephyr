@@ -5,22 +5,31 @@ var router = express.Router();
 
 const userRoleService = new UserRoleService();
 
-router.get('/', function (req, res, next) {
-  const userRoles = userRoleService.getAllUserRoles();
+router.get('/', async function (req, res, next) {
+  const userRoles = await userRoleService.getAllUserRoles();
   res.send(userRoles);
 });
 
-router.post('/create', function (req, res, next) {
+router.post('/create', async function (req, res, next) {
   const newUserRole = req.body;
-  const createdUserRole = userRoleService.createNewUserRole(newUserRole);
+  const createdUserRole = await userRoleService.createNewUserRole(newUserRole.roleId, newUserRole.userId);
   res.send(createdUserRole);
 });
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', async function (req, res, next) {
   const userRoleId = req.params.id;
 
-  const userRole = userRoleService.getUserRoleById(userRoleId);
+  const userRole = await userRoleService.getUserRoleById(userRoleId);
   res.send(userRole);
 });
+
+router.get('/roles/:roleId', async function(req, res, next){
+  const userRoles = await userRoleService.getUserRolesByRoleId(req.params.roleId);
+  res.send(userRoles);
+});
+//get users by roleid
+
+//get 
+router.get('')
 
 module.exports = router;
