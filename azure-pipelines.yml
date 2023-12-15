@@ -11,8 +11,8 @@ trigger:
 variables:
     # Container registry service connection established during pipeline creation
     dockerRegistryServiceConnection: 'zephyr'
-    frontendImageRepository: 'zephyr'
-    backendImageRepository: 'zephyr'
+    frontendImageRepository: 'zephyrFrontend'
+    backendImageRepository: 'zephyrBackend'
     containerRegistry: 'devdockerreg01.azurecr.io'
     bdockerfilePath: 'backend**/Dockerfile'
     fdockerfilePath: 'frontend**/Dockerfile'
@@ -75,20 +75,36 @@ steps:
       cd frontend/
       ls -al
   
-      filePath="app/frontend/Dockerfile"
+      frontendDockerFilePath="app/frontend/Dockerfile"
   
       echo "##vso[task.setvariable variable=FilePath]$filePath"
   
-      echo "File path set to: $filePath"
-    displayName: 'Set File Path'
+      echo "File path set to: $frontendDockerFilePath"
+    displayName: 'Set Frontend Docker File Path'
   
+  - script: |
+      # List the items in the current directory
+      ls -al
+      
+      cd app/
+      ls -al
+      
+      cd backend/
+      ls -al
+  
+      backendDockerFilePath="app/backend/Dockerfile"
+  
+      echo "##vso[task.setvariable variable=FilePath]$filePath"
+  
+      echo "File path set to: $backendDockerFilePath"
+    displayName: 'Set Backend Docker File Path'
   
   - task: Docker@2
     displayName: Build and push an image to container registry for frontend
     inputs:
       command: buildAndPush
-      repository: '$(System.DefaultWorkingDirectory)/$(fdockerfilePath)'
-      dockerfile: $(filePath)
+      repository: '$(frontendImageRepository)'
+      dockerfile: $(frontendDockerFilePath)
       containerRegistry: $(dockerRegistryServiceConnection)
       tags: |
         $(tag)
@@ -106,7 +122,7 @@ steps:
     inputs:
       command: buildAndPush
       repository: $(backendImageRepository)
-      dockerfile: '$(System.DefaultWorkingDirectory)/$(bdockerfilePath)'
+      dockerfile: '$(backendDockerFilePath)'
       containerRegistry: $(dockerRegistryServiceConnection)
       tags: |
         $(tag)
