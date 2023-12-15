@@ -22,10 +22,10 @@ function OrderDetail({name,merchant,description,price,quantity,img}) {
                 </div>  
             </div>
             <div className="[ product-total ][ font-[Pacifico] text-[24px] phone:text-[16px] ]">
-                $2,000.00
+                ${price}.00
             </div>
         </div>
     )
 }
 
-export default OrderDetail
+export default OrderDetail;

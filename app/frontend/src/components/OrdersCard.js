@@ -7,7 +7,7 @@ import OrderDetails from "./OrderDetails";
 const OrdersCard = () => {
     const [isActive, setActive] = useState("active")
     const [isEmpty, setEmpty] = useState(true)
-    const orders = 0
+    const orders = 1
     return(
         <div className="w-full flex flex-col md:px-[40px] ">
             {

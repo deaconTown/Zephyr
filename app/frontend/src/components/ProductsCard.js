@@ -46,7 +46,7 @@ const ProductsCard = () => {
             </div>
             <div className="col-span-2 h-96">
                 <Card className="max-w-full h-full overflow-y-auto ">
-                    {data ? (data.map((product, key) => (<AccordionWidget title={product.name} description={product.description} />))) : <p>Loading...</p>}
+                    {data ? (data.map((product, key) => (<AccordionWidget product={product} />))) : <p>Loading...</p>}
                 </Card>
 
             </div>
