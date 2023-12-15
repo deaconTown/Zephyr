@@ -72,7 +72,7 @@ steps:
     cd app/
     ls -al
     
-    cd app/frontend
+    cd frontend/
     ls -al
 
     filePath="app/frontend/Dockerfile"
