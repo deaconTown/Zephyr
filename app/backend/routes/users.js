@@ -7,58 +7,95 @@ const userRoleService = new UserRoleService();
 const userService = new UserService(userRoleService);
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  const users = userService.getAllUser();
-  if(users.length > 0)
-  {
-    res.send(users);
+router.get('/', async function (req, res, next) {
 
+  try {
+    const users = await userService.getAllUser();
+    console.log("users again", users)
+
+    if (users.length > 0) {
+      res.send(users);
+
+    }
+    else {
+      res.status(404).send({ errorMessage: "No user found" })
+    }
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
   }
-  else{
-    res.status(404).send({errorMessage: "No user found"})
-  }
+
 });
 
 router.post('/create', function (req, res, next) {
   const newUser = req.body;
-  const createdUser = userService.createNewUser(newUser);
-  res.send(createdUser);
+  try {
+    const createdUser = userService.createNewUser(newUser);
+    res.send(createdUser);
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
 });
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', async function (req, res, next) {
   const userId = req.params.id;
 
-  const user = userService.getUserById(userId);
-  res.send(user);
+  try {
+    const user = await userService.getUserById(userId);
+    res.send(user);
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
 });
 
-router.delete('/:id', function (req, res, next) {
-  const userId = req.params.id;
+router.delete('/:id', async function (req, res, next) {
+  const { id } = req.params;
 
-  userService.deleteUser(userId);
-  res.status(204).send();
+  try {
+    await userService.deleteUser(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
 });
 
-router.patch('/deactivateUser/:id', function (req, res, next) {
-  const userId = req.params.id;
+router.patch('/deactivate/:id', async function (req, res, next) {
+  const {id} = req.params;
 
-  userService.deactivateUser(userId);
-  res.status(204).send();
+  try {
+    const role = await userService.deactivateUser(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
 });
 
-router.patch('/activateUser/:id', function (req, res, next) {
-  const userId = req.params.id;
+router.patch('/activate/:id', async function (req, res, next) {
+  const {id} = req.params;
 
-  userService.activateUser(userId);
-  res.status(204).send();
+  try {
+    const role = await userService.activateUser(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
 });
 
-router.patch('/verifyEmail/:id', function (req, res, next) {
-  const userId = req.params.id;
-
-  userService.verifyUserEmail(userId);
-  res.status(204).send();
-});
+  router.patch('/verifyEmail/:id', async function (req, res, next) {
+    const {id} = req.params;
+  
+    try {
+      const role = await userService.verifyUserEmail(id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).send({ errormessage: error.message })
+    }
+  
+  });
 
 router.get('/usersByRole/:userTypeId', function (req, res, next) {
   const userTypeId = req.params.userTypeId;
