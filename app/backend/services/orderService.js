@@ -14,7 +14,7 @@ class OrderService{
             console.log("Attempting to build order obejct")
             let orderModel = new Order(null, order.customerId, order.merchantId, order.statusId, order.totalCost, [])
             console.log(`Attempting to create order...`)
-            const response = this.orderRepository.createOrder(orderModel)
+            const response = await this.orderRepository.createOrder(orderModel)
             if(response == null)
                 throw new Error(`There is an issue creating order: ${response}`)
             console.log(`Order created successfully with id: ${order.id}`)
@@ -23,6 +23,38 @@ class OrderService{
             console.error(error);
         }
         console.log(`OrderService: Exit createOrder method ${result}`)
+        return result;
+    }
+    fetchOrders = async () =>{
+        console.log(`OrderService: Enter fetchOrders method`)
+        let result = null;
+        try {
+            console.log("Attempting to fetch orders")
+            const response = await this.orderRepository.fetchOrders()
+            if(response == null)
+                throw new Error(`There is an issue fetching order: ${response}`)
+            console.log(`Order retrieved successfully`)
+            result = response;
+        } catch (error) {
+            console.error(error);
+        }
+        console.log(`OrderService: Exit fetchOrders method ${result}`)
+        return result;
+    }
+    fetchOrdersByCustomerId = async (customerId) =>{
+        console.log(`OrderService: Enter fetchOrdersByCustomerId method with params: ${{customerId}}`)
+        let result = null;
+        try {
+            console.log("Attempting to fetch orders")
+            const response = await this.orderRepository.fetchOrdersByCustomerId(customerId)
+            if(response == null)
+                throw new Error(`There is an issue fetching order: ${response}`)
+            console.log(`Order retrieved successfully`)
+            result = response;
+        } catch (error) {
+            console.error(error);
+        }
+        console.log(`OrderService: Exit fetchOrdersByCustomerId method ${{result}}`)
         return result;
     }
 }

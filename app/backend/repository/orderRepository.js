@@ -31,8 +31,8 @@ class OrderRepository{
         let result = null;
         try {
             if(order == null)
-                throw new Error(`There is an issue processing order model: ${order}`)
-            console.log(`Attempting to update order...`)
+                throw new Error(`OrderRepository: There is an issue processing order model: ${order}`)
+            console.log(`OrderRepository: Attempting to update order...`)
             const response = await prisma.order.update({
                 where:{
                     id: order.id
@@ -45,8 +45,8 @@ class OrderRepository{
                 }
             })
             if(response == null)
-                throw new Error(`There is an issue updating order: ${response}`)
-            console.log(`Order updated successfully with id: ${order.id}`)
+                throw new Error(`OrderRepository: There is an issue updating order: ${response}`)
+            console.log(`OrderRepository: Order updated successfully with id: ${order.id}`)
             result = response;
         } catch (error) {
             console.error(error);
@@ -58,11 +58,11 @@ class OrderRepository{
         console.log(`OrderRepository: Enter fetchOrders method`)
         let result = null;
         try {
-            console.log(`Attempting to update order...`)
+            console.log(`Attempting to fetch orders...`)
             const response = await prisma.order.findMany();
             if(response == null)
                 throw new Error(`There is an issue fetching orders: ${response}`)
-            console.log(`Order retrieved successfully`)
+            console.log(`Orders retrieved successfully`)
             result = response;
         } catch (error) {
             console.error(error);
@@ -77,15 +77,16 @@ class OrderRepository{
         try {
             if(customerId == null)
                 throw new Error(`There is an issue processing customerId : ${customerId}`)
+            let parsedCustomerId = parseInt(customerId)
             console.log(`Attempting to fetch order...`)
             const response = await prisma.order.findUnique({
                 where: {
-                  customerId: customerId,
+                  customerId: parsedCustomerId,
                 },
               })
             if(response == null)
                 throw new Error(`There is an issue fetching order: ${response}`)
-            console.log(`Order retrieved successfully with customerId: ${customerId}`)
+            console.log(`Order retrieved successfully with customerId: ${parsedCustomerId}`)
             result = response;
         } catch (error) {
             console.error(error);
