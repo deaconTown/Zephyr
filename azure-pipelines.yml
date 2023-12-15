@@ -1,0 +1,112 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  - main
+  - develop
+  - release/*
+  
+  variables:
+    # Container registry service connection established during pipeline creation
+    dockerRegistryServiceConnection: 'zephyr'
+    frontendImageRepository: 'zephyr'
+    backendImageRepository: 'zephyr'
+    containerRegistry: 'devdockerreg01.azurecr.io'
+    bdockerfilePath: 'backend**/Dockerfile'
+    fdockerfilePath: 'frontend**/Dockerfile'
+    tag: '$(Build.BuildId)'
+  
+  pool:
+    vmImage: ubuntu-latest
+  
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+    displayName: 'Install Node.js'
+  
+  - script: |
+      cd app/frontend
+      npm install
+    displayName: 'npm install'
+  
+  - script: |
+      cd app/frontend
+      npm run build
+    displayName: 'npm build'
+  
+  - script: |
+      cd app/backend
+      npm install
+    displayName: 'npm install'
+  
+  # - script: |
+  #     cd app/backend
+  #     npm run build
+  #   displayName: 'npm build'
+  
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/app/frontend/'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/frontend/frontend.zip'
+      replaceExistingArchive: true
+    displayName: 'Archive Build Artifacts'
+  
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/app/backend/'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/backend/backend.zip'
+      replaceExistingArchive: true
+    displayName: 'Archive Build Artifacts'
+    
+  - script: |
+      # List the items in the current directory
+      ls -al
+      
+      cd app/
+      ls -al
+      
+      cd frontend/
+      ls -al
+  
+      filePath="app/frontend/Dockerfile"
+  
+      echo "##vso[task.setvariable variable=FilePath]$filePath"
+  
+      echo "File path set to: $filePath"
+    displayName: 'Set File Path'
+  
+  
+  - task: Docker@2
+    displayName: Build and push an image to container registry for frontend
+    inputs:
+      command: buildAndPush
+      repository: '$(System.DefaultWorkingDirectory)/$(fdockerfilePath)'
+      dockerfile: $(filePath)
+      containerRegistry: $(dockerRegistryServiceConnection)
+      tags: |
+        $(tag)
+  
+  
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+  
+  - task: Docker@2
+    displayName: Build and push an image to container registry for backend
+    inputs:
+      command: buildAndPush
+      repository: $(backendImageRepository)
+      dockerfile: '$(System.DefaultWorkingDirectory)/$(bdockerfilePath)'
+      containerRegistry: $(dockerRegistryServiceConnection)
+      tags: |
+        $(tag)
