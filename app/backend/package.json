@@ -7,6 +7,9 @@
     "test": "jest --verbose",
     "dev": "nodemon app.js"
   },
+  "prisma": {
+    "seed": "node ./data/seed.js"
+  },
   "dependencies": {
     "@prisma/client": "^5.7.0",
     "bcrypt": "^5.1.1",
