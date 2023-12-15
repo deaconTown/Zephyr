@@ -12,6 +12,7 @@ module.exports = {
         md: '768px',
         lg: '1024px',
         xl: '1440px',
+        phone: {'min':'0px','max': '420px'}
       },
       colors:{
         "primary": "#62A87C",
