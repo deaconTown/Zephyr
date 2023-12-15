@@ -9,7 +9,7 @@ class UserService {
 
     constructor(userRoleService) {
         this.user = new User();
-        // this.userRoleService = userRoleService;
+        this.userRoleService = userRoleService;
     }
 
 
@@ -112,23 +112,40 @@ class UserService {
         return result;
     }
     getAllUsersByRoleId = (roleId) => {
-
-        const userRoles = this.userRoleService.getUserRolesByRoleId(roleId);
-
-        const users = this.getAllUser();
-
+        console.log('entered getAllUsersByRoleId method in UserService')
         let usersByRole = [];
-        if (userRoles && userRoles.length > 0 && users.length > 0) {
-            let foundUser;
-            userRoles.forEach(userRole => {
+        try {
+            console.log(`attempting to get all users by roleId: ${roleId}`);
+            const userRoles = this.userRoleService.getUserRolesByRoleId(roleId);
+            if(userRoles == null){
+                console.log("userRoles was null");
+                throw new Error("There was an issue fetching all user roles by role Id");  
+            }                          
 
-                foundUser = users.find(x => x.id === userRole.userId);
+            const users = this.getAllUser();
+            
+            if(users == null){
+                console.log('users was null');
+                throw new Error("There was an issue fetching all users")
+            }
+                
 
-                if (foundUser) {
-                    usersByRole.push(foundUser);
-                }
-            });
+            if (userRoles && userRoles.length > 0 && users.length > 0) {
+                let foundUser;
+                console.log('iterating through each userRole');
+                userRoles.forEach(userRole => {
+                    console.log(`using userRole of ${userRole.id}`)
+                    foundUser = users.find(x => x.id === userRole.userId);
 
+                    if (foundUser) {
+                        console.log(`found user with id: ${foundUser.id}`);
+                        usersByRole.push(foundUser);
+                    }
+                });
+
+            }
+        } catch (error) {
+            console.error(error)
         }
 
         return usersByRole;

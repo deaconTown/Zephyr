@@ -39,6 +39,10 @@ class UserRoleService {
         try{
             console.log(`attempting to get user roles with id: ${id}`);
             const userRole  = await this.userRoleRepository.getUserRoleById(id);
+            if(userRole == null)
+                throw new Error(`userRole was null`);
+
+            console.log(`user role found with id: ${userRole.id}`);
             return userRole;
         }catch(error){
             console.log(`Error: ${error.message}`);
@@ -47,10 +51,15 @@ class UserRoleService {
     }
 
     getUserRolesByRoleId = async (roleId) => {
-        console.log('entered getUserRolesByRoleId method in UserRoleService');
+        console.log('entered test getUserRolesByRoleId method in UserRoleService');
         try{
-            console.log(`attempting to get user roles by role id`);
-            const userRoles = await this.getUserRolesByRoleId(roleId);
+            console.log(`attempting to get user roles by role id: ${roleId}`);
+            const userRoles = await this.userRoleRepository.getUserRolesByRoleId(roleId);
+
+            if(userRoles == null)
+                throw new Error(`userRoles was null`);
+
+            console.log(`total user roles found: ${userRoles.length}`);
             return userRoles;
         }catch(error){
             console.log(`Error: ${error.message}`);
