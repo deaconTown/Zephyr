@@ -5,12 +5,12 @@ var router = express.Router();
 
 const roleService = new RoleService();
 
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
 
   try {
-    const userRoles = roleService.getAllRoles();
+    const roles = await roleService.getAllRoles();
     console.log("roles again", roles)
-    res.send(userRoles);
+    res.send(roles);
   } catch (error) {
     res.status(500).send({ errormessage: error.message })
   }
@@ -25,16 +25,46 @@ router.post('/create', async function (req, res, next) {
     res.send(createdRole);
 
   } catch (error) {
-    res.status(500).send({ errormessage: "Internal Server Error" })
+    res.status(500).send({ errormessage: error.message })
   }
   console.log(`exiting the create role endpoint`)
 });
 
-// router.get('/:id', function (req, res, next) {
-//   const userRoleId = req.params.id;
+router.get('/:id', async function (req, res, next) {
+  const roleId = req.params.id;
 
-//   const userRole = roleService.getUserRoleById(userRoleId);
-//   res.send(userRole);
-// });
+  try {
+    const role = await roleService.getRoleById(roleId);
+    console.log("roleing ", role)
+    res.send(role);
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
+});
+
+router.put('/updateRole', async function (req, res, next) {
+  const roleToUpdate = req.body;
+
+  try {
+    const role = await roleService.updateRole(roleToUpdate);
+    res.send(role);
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
+});
+
+router.delete('/:id', async function (req, res, next) {
+  const {id} = req.params;
+
+  try {
+    const role = await roleService.deleteRole(id);
+    res.send(role);
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
+});
 
 module.exports = router;
