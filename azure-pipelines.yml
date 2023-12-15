@@ -33,6 +33,7 @@ steps:
   displayName: 'npm install'
 
 - script: |
+    cd app/frontend
     npm run build
   displayName: 'npm build'
 
@@ -42,6 +43,7 @@ steps:
   displayName: 'npm install'
 
 - script: |
+    cd app/backend
     npm run build
   displayName: 'npm build'
 
