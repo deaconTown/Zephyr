@@ -118,7 +118,7 @@ To get the Zephyr database up and running, follow these steps:
 4. **Check that the database exists:** Open Microsoft SQL Server Management Studo and check that the `zephyr` database exists with its tables. If it was found, run the following command:
 
     ```bash
-    npx prisma migrate dev --name init
+    npx prisma migrate dev
     ```
 see [Prisma Site](https://www.prisma.io/docs/getting-started/quickstart) for more.
 
