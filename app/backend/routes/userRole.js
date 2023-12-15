@@ -5,7 +5,7 @@ var router = express.Router();
 
 const userRoleService = new UserRoleService();
 
-router.get('/getAll', function (req, res, next) {
+router.get('/', function (req, res, next) {
   const userRoles = userRoleService.getAllUserRoles();
   res.send(userRoles);
 });
