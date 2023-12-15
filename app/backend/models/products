@@ -1,0 +1,128 @@
+class Products{
+    id;
+    merchantId;
+    name;
+    unitCost;
+    stockLevel;
+    imageUrl;
+    description;
+    isActive;
+    isDeleted;
+
+    products = [
+        {
+            "id": 1,
+            "merchantId": 1,
+            "name": "Satisfaction",
+            "unitCost": 1200,
+            "stockLevel": 100,
+            "imageUrl": "",
+            "description": "Rice and Peas with Jerk Chicken",
+            "isActive": true,
+            "isDeleted": false
+        },
+        {
+            "id": 2,
+            "merchantId": 1,
+            "name": "Just Nuff",
+            "unitCost": 900,
+            "stockLevel": 10,
+            "imageUrl": "",
+            "description": "Festival with Jerk Chicken",
+            "isActive": true,
+            "isDeleted": false
+        },
+        {
+            "id": 3,
+            "merchantId": 1,
+            "name": "Yabba",
+            "unitCost": 1200,
+            "stockLevel": 100,
+            "imageUrl": "",
+            "description": "Rice and Peas with Jerk Chicken",
+            "isActive": true,
+            "isDeleted": false
+        },
+        {
+            "id": 4,
+            "merchantId": 2,
+            "name": "Meal Deal",
+            "unitCost": 995,
+            "stockLevel": 100,
+            "imageUrl": "",
+            "description": "2 piece fried chicken with fries and a soda",
+            "isActive": true,
+            "isDeleted": false
+        }
+    ];
+    constructor(){
+        // this.products = this.products;
+        
+    }
+
+    getAllProducts(){
+        return this.products.filter(prod => prod.isActive == true && prod.isDeleted == false);
+    }
+
+    createProduct(product){               
+        let existingProducts = this.getAllProducts().filter(prod => prod.id == product.id);  
+        
+        if(existingProducts.length <= 0){
+            this.products.push(product);  
+            return product.id;  
+        }else{ 
+            let currentProduct = this.getProduct(product.id);
+
+            if(product.merchantId == currentProduct.merchantId){
+                product.stockLevel = product.stockLevel + currentProduct.stockLevel;
+                this.updateProduct(product);    
+            }                  
+            
+            return 0;
+        }              
+    }
+
+    getProduct(productId){
+        return this.getAllProducts().filter(prod => prod.id == productId && prod.isActive == true && prod.isDeleted == false)[0];
+    }
+
+    updateProduct(updatedProduct){
+       let productToUpdate = this.getProduct(updatedProduct.id);    
+       let index = this.products.findIndex(prod => prod.id == updatedProduct.id);
+
+       //if(updatedProduct.stockLevel >= 0){
+            let update = { ...productToUpdate, ...updatedProduct }
+            this.products[index] = update;
+       //}      
+
+       return update.id;
+    }
+
+    deleteProduct(productId){
+        let deletedProduct = this.getProduct(productId);
+
+        deletedProduct.isDeleted = true;
+        deletedProduct.isActive = false;
+        this.updateProduct(deletedProduct);
+
+        return deletedProduct.id;
+    }
+
+    getProductsByMerchant(merchantId){
+        return this.products.filter(prod => prod.merchantId == merchantId);
+    }
+
+    deactivateProduct(productId){
+        let product = this.getProduct(productId);
+
+        if(product != {}){
+            product.isActive = false;
+            this.updateProduct(product);
+        }
+        
+
+        return product;
+    }
+}
+
+module.exports = Products;
