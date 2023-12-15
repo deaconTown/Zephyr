@@ -69,7 +69,7 @@ steps:
   displayName: Build and push an image to container registry for frontend
   inputs:
     command: buildAndPush
-    repository: $(frontendImageRepository)
+    repository: '$(System.DefaultWorkingDirectory)/$(fdockerfilePath)'
     dockerfile: $(fdockerfilePath)
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
@@ -88,7 +88,7 @@ steps:
   inputs:
     command: buildAndPush
     repository: $(backendImageRepository)
-    dockerfile: $(bdockerfilePath)
+    dockerfile: '$(System.DefaultWorkingDirectory)/$(bdockerfilePath)'
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       $(tag)
