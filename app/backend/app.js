@@ -7,7 +7,7 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var usersRouter = require('./routes/userRole');
+var usersRoleRouter = require('./routes/userRole');
 var rolesRouter = require('./routes/roles');
 var productRouter = require('./routes/products')
 
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/userRoles', usersRouter);
+app.use('/userRoles', usersRoleRouter);
 app.use('/roles', rolesRouter);
 app.use('/products', productRouter)
 

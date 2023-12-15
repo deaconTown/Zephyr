@@ -18,7 +18,7 @@ class Products{
             "stockLevel": 100,
             "imageUrl": "",
             "description": "Rice and Peas with Jerk Chicken",
-            "isActive": false,
+            "isActive": true,
             "isDeleted": false
         },
         {
@@ -61,7 +61,7 @@ class Products{
     }
 
     getAllProducts(){
-        return this.products
+        return this.products.filter(prod => prod.isActive == true && prod.isDeleted == false);
     }
 
     createProduct(product){               
@@ -70,12 +70,15 @@ class Products{
         if(existingProducts.length <= 0){
             this.products.push(product);  
             return product.id;  
-        }else{
-           let currentProduct = this.getProduct(product.id);
+        }else{ 
+            let currentProduct = this.getProduct(product.id);
 
-           currentProduct.stockLevel+= 1;
-
-           return 0;
+            if(product.merchantId == currentProduct.merchantId){
+                product.stockLevel = product.stockLevel + currentProduct.stockLevel;
+                this.updateProduct(product);    
+            }                  
+            
+            return 0;
         }              
     }
 
@@ -87,8 +90,10 @@ class Products{
        let productToUpdate = this.getProduct(updatedProduct.id);    
        let index = this.products.findIndex(prod => prod.id == updatedProduct.id);
 
-       let update = { ...updatedProduct, ...productToUpdate  }
-       this.products[index] = update;
+       //if(updatedProduct.stockLevel >= 0){
+            let update = { ...productToUpdate, ...updatedProduct }
+            this.products[index] = update;
+       //}      
 
        return update.id;
     }
@@ -98,7 +103,6 @@ class Products{
 
         deletedProduct.isDeleted = true;
         deletedProduct.isActive = false;
-        deletedProduct.stockLevel-= 1;
         this.updateProduct(deletedProduct);
 
         return deletedProduct.id;
@@ -106,6 +110,18 @@ class Products{
 
     getProductsByMerchant(merchantId){
         return this.products.filter(prod => prod.merchantId == merchantId);
+    }
+
+    deactivateProduct(productId){
+        let product = this.getProduct(productId);
+
+        if(product != {}){
+            product.isActive = false;
+            this.updateProduct(product);
+        }
+        
+
+        return product;
     }
 }
 
