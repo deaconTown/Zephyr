@@ -11,15 +11,16 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  name      String
-  password  String
-  location  String?
-  logoUrl   String?
-  isActive  Boolean    @default(true)
-  isDeleted Boolean    @default(false)
-  userRoles UserRole[]
+  id              Int        @id @default(autoincrement())
+  email           String     @unique
+  name            String
+  password        String
+  location        String?
+  logoUrl         String?
+  isActive        Boolean    @default(true)
+  isDeleted       Boolean    @default(false)
+  isEmailVerified Boolean    @default(false)
+  userRoles       UserRole[]
 }
 
 model Role {
