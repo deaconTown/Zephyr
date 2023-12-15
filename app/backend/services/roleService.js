@@ -121,7 +121,7 @@ class RoleService {
     }
 
     deleteRole = async (id) => {
-        console.log(`entered updateRole method`)
+        console.log(`entered deleteRole method`)
 
         try {
             // const newUserRole = this.userRole.create(roleId, userId);
@@ -141,8 +141,76 @@ class RoleService {
                 },
             })
 
-            console.log(`existing updateRole method`)
+            console.log(`existing deleteRole method`)
             return updatedRole;
+
+        } catch (error) {
+
+            console.log(`Error: ${error.message}`);
+            throw error;
+        }
+
+
+        // return {};
+    }
+
+    deactiveRole = async (id) => {
+        console.log(`entered deactiveRole method`)
+
+        try {
+            // const newUserRole = this.userRole.create(roleId, userId);
+            // let ur;
+
+            // if (newUserRole) {
+            // console.log(`new user role found ${newUserRole}`)
+
+            console.log(`attempting to  delete role with id ${id}`);
+
+            const deactivatedRole = await prisma.role.update({
+                where: {
+                    id: parseInt(id),
+                },
+                data: {
+                    isActive: false
+                },
+            })
+
+            console.log(`existing deleteRole method`)
+            return deactivatedRole;
+
+        } catch (error) {
+
+            console.log(`Error: ${error.message}`);
+            throw error;
+        }
+
+
+        // return {};
+    }
+
+    activeRole = async (id) => {
+        console.log(`entered deactiveRole method`)
+
+        try {
+            // const newUserRole = this.userRole.create(roleId, userId);
+            // let ur;
+
+            // if (newUserRole) {
+            // console.log(`new user role found ${newUserRole}`)
+
+            console.log(`attempting to  delete role with id ${id}`);
+
+            const deactivatedRole = await prisma.role.update({
+                where: {
+                    id: parseInt(id),
+                },
+                data: {
+                    isActive: true
+                },
+            })
+
+            console.log(`existing deleteRole method`)
+            return deactivatedRole;
 
         } catch (error) {
 

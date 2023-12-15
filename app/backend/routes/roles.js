@@ -55,12 +55,38 @@ router.put('/updateRole', async function (req, res, next) {
 
 });
 
-router.delete('/:id', async function (req, res, next) {
+
+router.patch('/deactivate/:id', async function (req, res, next) {
   const {id} = req.params;
 
   try {
-    const role = await roleService.deleteRole(id);
-    res.send(role);
+    const role = await roleService.deactiveRole(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
+});
+
+
+router.patch('/activate/:id', async function (req, res, next) {
+  const {id} = req.params;
+
+  try {
+    const role = await roleService.activeRole(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
+});
+
+router.delete('/:id', async function (req, res, next) {
+  const { id } = req.params;
+
+  try {
+    await roleService.deleteRole(id);
+    res.status(204).send();
   } catch (error) {
     res.status(500).send({ errormessage: error.message })
   }
