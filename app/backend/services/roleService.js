@@ -13,24 +13,49 @@ class RoleService {
             // if (newUserRole) {
             // console.log(`new user role found ${newUserRole}`)
 
+            console.log(`attempting to create a new role with name ${name} and description ${description}`);
+
             const newRole = await prisma.role.create({
                 data:
                 {
-                    name : name,
+                    name: name,
                     description: description
                 },
             });
 
+            console.log(`existing createNewRole method`)
             return newRole;
 
         } catch (error) {
 
-            console.log(`Error: ${error.message}`)
+            console.log(`Error: ${error.message}`);
+            throw error;
         }
 
-        console.log(`existing createNewRole method`)
 
-        return {};
+        // return {};
+    }
+
+    getAllRoles = async () => {
+        console.log(`entered getAllRoles method`)
+
+        // let roles = [];
+
+        try {
+            console.log(`attempting to get all roles`);
+            const roles = await prisma.role.findMany();
+
+            // console.log("roles", roles)
+
+            console.log(`existing getAllRoles method`);
+            return roles;
+
+        } catch (error) {
+            console.log(`Error: ${error.message}`)
+            throw error;
+        }
+
+        // return roles;
     }
 
 }

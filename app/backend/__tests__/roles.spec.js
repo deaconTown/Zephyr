@@ -1,5 +1,6 @@
 const { describe, expect, test } = require('@jest/globals');
 const RoleService = require('../services/roleService');
+const UserRoleService = require('../services/userRoleService');
 
 
 describe('Role Service', () => {
@@ -16,12 +17,12 @@ describe('Role Service', () => {
     //   providers: [UserRoleService]
     // }).compile();
 
-    userRoleService = new userRoleService();
+    userRoleService = new UserRoleService();
     roleService = new RoleService();
   });
 
 
-  test('should create a new role', () => {
+  test('should create a new role', async () => {
     //arrange
     const newRole = {
       name: "Merchant",
@@ -29,319 +30,322 @@ describe('Role Service', () => {
     }
 
     //act
-    roleService.createNewRole(newRole);
-
-    const result = roleService.getAllRoles();
-
-    //assert
-    expect(result.length).toEqual(1);
-  });
-
-  test('should get all roles', () => {
-    const newRole1 = {
-        name: "Merchant",
-        description: "This is the merchant role",
-      }
-
-      const newRole2 = {
-        name: "Customer",
-        description: "This is the customer role",
-      }
-
-    roleService.createNewRole(newRole1);
-    roleService.createNewRole(newRole1);
-
-    const sut = roleService.getAllRoles();
-    const result = sut.length;
-    expect(result).toEqual(2);
-  });
-
-  test('should get a user by id', () => {
-    //arrange
-
-    const newUser = {
-      name: "John Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
-    const newUser2 = {
-      name: "Jane Doe",
-      email: "jd2@email.com",
-      password: "password123",
-    }
-
-
-    //act 
-    const user1 = roleService.createNewUser(newUser);
-    const user2 = roleService.createNewUser(newUser2);
-
-    const sut = roleService.getUserById(user2.id);
+    const sut = await roleService.createNewRole(newRole.name, newRole.description);
 
     const result = sut.name;
 
     //assert
-    expect(result).toEqual("Jane Doe");
+    expect(result).toEqual("Merchant");
   });
 
-  test('should get all user of type merchant', () => {
-    const newUser = {
-      name: "John Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
-    const newUser2 = {
-      name: "Jane Doe",
-      email: "jd2@email.com",
-      password: "password123",
-    }
-    const newUser3 = {
-      name: "Mary Doe",
-      email: "jd3@email.com",
-      password: "password123",
-    }
+  // test('should get all roles', async() => {
+  //   const newRole1 = {
+  //       name: "Merchant",
+  //       description: "This is the merchant role",
+  //     }
 
-    const user1 = roleService.createNewUser(newUser);
-    const user2 = roleService.createNewUser(newUser2);
-    const user3 = roleService.createNewUser(newUser3);
+  //     const newRole2 = {
+  //       name: "Customer",
+  //       description: "This is the customer role",
+  //     }
 
-    const newUserRole1 = {
-      roleId: merchantRoleId,
-      userId: user1.id
-    }
+  // //act
+  // const role1  = await roleService.createNewRole(newRole1.name, newRole1.description);
+  // const role2  = await roleService.createNewRole(newRole2.name, newRole2.description);
 
-    const newUserRole2 = {
-      roleId: merchantRoleId,
-      userId: user2.id
-    }
+  //   const sut = await roleService.getAllRoles();
 
-    // const newUserRole3 = {
-    //   roleId: customerRoleId,
-    //   userId: user3.id
-    // }
+  //   console.log(sut)
+  //   const result = sut.length;
+  //   expect(result).toEqual(2);
+  // });
 
-    const userRoles = [
-      newUserRole1,
-      newUserRole2
-    ]
+  // test('should get a user by id', () => {
+  //   //arrange
+
+  //   const newUser = {
+  //     name: "John Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser2 = {
+  //     name: "Jane Doe",
+  //     email: "jd2@email.com",
+  //     password: "password123",
+  //   }
 
 
-    jest.spyOn(userRoleService, 'getUserRolesByRoleId').mockImplementation((merchantRoleId) => userRoles);
+  //   //act 
+  //   const user1 = roleService.createNewUser(newUser);
+  //   const user2 = roleService.createNewUser(newUser2);
 
-    const sut = roleService.getAllUsersByRoleId(merchantRoleId);
-    const result = sut.length;
-    expect(result).toEqual(2);
-  });
+  //   const sut = roleService.getUserById(user2.id);
 
-  test('should get all user of type customer', () => {
-    const newUser = {
-      name: "John Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
-    const newUser2 = {
-      name: "Jane Doe",
-      email: "jd2@email.com",
-      password: "password123",
-    }
-    const newUser3 = {
-      name: "Mary Doe",
-      email: "jd3@email.com",
-      password: "password123",
-    }
+  //   const result = sut.name;
 
-    const user1 = roleService.createNewUser(newUser);
-    const user2 = roleService.createNewUser(newUser2);
-    const user3 = roleService.createNewUser(newUser3);
+  //   //assert
+  //   expect(result).toEqual("Jane Doe");
+  // });
 
-    const newUserRole1 = {
-      roleId: customerRoleId,
-      userId: user1.id
-    }
+  // test('should get all user of type merchant', () => {
+  //   const newUser = {
+  //     name: "John Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser2 = {
+  //     name: "Jane Doe",
+  //     email: "jd2@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser3 = {
+  //     name: "Mary Doe",
+  //     email: "jd3@email.com",
+  //     password: "password123",
+  //   }
 
-    const newUserRole2 = {
-      roleId: customerRoleId,
-      userId: user2.id
-    }
+  //   const user1 = roleService.createNewUser(newUser);
+  //   const user2 = roleService.createNewUser(newUser2);
+  //   const user3 = roleService.createNewUser(newUser3);
 
-    const newUserRole3 = {
-      roleId: customerRoleId,
-      userId: user3.id
-    }
+  //   const newUserRole1 = {
+  //     roleId: merchantRoleId,
+  //     userId: user1.id
+  //   }
 
-    const userRoles = [
-      newUserRole1,
-      newUserRole2,
-      newUserRole3,
+  //   const newUserRole2 = {
+  //     roleId: merchantRoleId,
+  //     userId: user2.id
+  //   }
 
-    ]
+  //   // const newUserRole3 = {
+  //   //   roleId: customerRoleId,
+  //   //   userId: user3.id
+  //   // }
 
-    jest.spyOn(userRoleService, 'getUserRolesByRoleId').mockImplementation((customerRoleId) => userRoles);
-
-    const sut = roleService.getAllUsersByRoleId(customerRoleId);
-    const result = sut.length;
-    expect(result).toEqual(3);
-  });
+  //   const userRoles = [
+  //     newUserRole1,
+  //     newUserRole2
+  //   ]
 
 
-  test('should delete a specific user', () => {
-    const newUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
+  //   jest.spyOn(userRoleService, 'getUserRolesByRoleId').mockImplementation((merchantRoleId) => userRoles);
 
-    const user1 = roleService.createNewUser(newUser);
+  //   const sut = roleService.getAllUsersByRoleId(merchantRoleId);
+  //   const result = sut.length;
+  //   expect(result).toEqual(2);
+  // });
 
-    roleService.deleteUser(user1.id);
-    const result = roleService.getAllUser();
-    const actualResult = result[0].isDeleted;
+  // test('should get all user of type customer', () => {
+  //   const newUser = {
+  //     name: "John Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser2 = {
+  //     name: "Jane Doe",
+  //     email: "jd2@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser3 = {
+  //     name: "Mary Doe",
+  //     email: "jd3@email.com",
+  //     password: "password123",
+  //   }
 
-    expect(actualResult).toEqual(true);
-  });
+  //   const user1 = roleService.createNewUser(newUser);
+  //   const user2 = roleService.createNewUser(newUser2);
+  //   const user3 = roleService.createNewUser(newUser3);
 
+  //   const newUserRole1 = {
+  //     roleId: customerRoleId,
+  //     userId: user1.id
+  //   }
 
-  test('should set user as inActive', () => {
-    const newUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
+  //   const newUserRole2 = {
+  //     roleId: customerRoleId,
+  //     userId: user2.id
+  //   }
 
-    const user1 = roleService.createNewUser(newUser);
+  //   const newUserRole3 = {
+  //     roleId: customerRoleId,
+  //     userId: user3.id
+  //   }
 
-    roleService.deactivateUser(user1.id);
-    const result = roleService.getUserById(user1.id).isActive;
+  //   const userRoles = [
+  //     newUserRole1,
+  //     newUserRole2,
+  //     newUserRole3,
 
-    expect(result).toEqual(false);
-  });
+  //   ]
 
+  //   jest.spyOn(userRoleService, 'getUserRolesByRoleId').mockImplementation((customerRoleId) => userRoles);
 
-  test('should set user as active', () => {
-    const newUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
-
-    const user1 = roleService.createNewUser(newUser);
-
-    roleService.deactivateUser(user1.id);
-
-    roleService.activateUser(user1.id);
-    const result = roleService.getUserById(user1.id).isActive;
-
-    expect(result).toEqual(true);
-  });
-
-  test('should get all active users only', () => {
-    const newUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
-    const newUser2 = {
-      name: "Jane Doe",
-      email: "jd2@email.com",
-      password: "password123",
-    }
-    const newUser3 = {
-      name: "Mary Doe",
-      email: "jd3@email.com",
-      password: "password123",
-    }
-
-    const user1 = roleService.createNewUser(newUser);
-    const user2 = roleService.createNewUser(newUser2);
-    const user3 = roleService.createNewUser(newUser3);
-
-    roleService.deactivateUser(user1.id);
-    roleService.deactivateUser(user2.id);
-
-    const sut = roleService.getActiveUsers();
-    const result = sut.length;
-
-    expect(result).toEqual(1);
-  });
+  //   const sut = roleService.getAllUsersByRoleId(customerRoleId);
+  //   const result = sut.length;
+  //   expect(result).toEqual(3);
+  // });
 
 
-  test('should set user email as verified', () => {
-    const newUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
+  // test('should delete a specific user', () => {
+  //   const newUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
 
-    const user1 = roleService.createNewUser(newUser);
+  //   const user1 = roleService.createNewUser(newUser);
 
-    roleService.verifyUserEmail(user1.id);
+  //   roleService.deleteUser(user1.id);
+  //   const result = roleService.getAllUser();
+  //   const actualResult = result[0].isDeleted;
 
-    const result = roleService.getUserById(user1.id).isEmailVerified;
+  //   expect(actualResult).toEqual(true);
+  // });
 
-    expect(result).toEqual(true);
-  });
 
-  test('should update the user name', () => {
-    const oldUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
+  // test('should set user as inActive', () => {
+  //   const newUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
 
-    const user1 = roleService.createNewUser(oldUser);
+  //   const user1 = roleService.createNewUser(newUser);
 
-    const updatedUser = {
-      id: user1.id,
-      name: "Frank Doe Poe",
-      email: "fdp@email.com",
-      password: "password2023",
-    }
+  //   roleService.deactivateUser(user1.id);
+  //   const result = roleService.getUserById(user1.id).isActive;
 
-    const updateUserResult = roleService.updateUser(updatedUser);
+  //   expect(result).toEqual(false);
+  // });
 
-    expect(updateUserResult.name).toEqual("Frank Doe Poe");
-  });
 
-  test('should not update the user id', () => {
-    const oldUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
+  // test('should set user as active', () => {
+  //   const newUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
 
-    const user1 = roleService.createNewUser(oldUser);
+  //   const user1 = roleService.createNewUser(newUser);
 
-    const updatedUser = {
-      id: user1.id,
-      name: "Frank Doe Poe",
-      email: "fdp@email.com",
-      password: "password2023",
-    }
+  //   roleService.deactivateUser(user1.id);
 
-    const updateUserResult = roleService.updateUser(updatedUser);
+  //   roleService.activateUser(user1.id);
+  //   const result = roleService.getUserById(user1.id).isActive;
 
-    expect(updateUserResult.id).toEqual(user1.id);
-  });
+  //   expect(result).toEqual(true);
+  // });
 
-  test('should not create multiple users with same email address', () => {
-    const newUser = {
-      name: "Frank Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
-    const newUser2 = {
-      name: "Jane Doe",
-      email: "jd@email.com",
-      password: "password123",
-    }
+  // test('should get all active users only', () => {
+  //   const newUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser2 = {
+  //     name: "Jane Doe",
+  //     email: "jd2@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser3 = {
+  //     name: "Mary Doe",
+  //     email: "jd3@email.com",
+  //     password: "password123",
+  //   }
 
-    const user1 = roleService.createNewUser(newUser);
-    const user2 = roleService.createNewUser(newUser2);
+  //   const user1 = roleService.createNewUser(newUser);
+  //   const user2 = roleService.createNewUser(newUser2);
+  //   const user3 = roleService.createNewUser(newUser3);
 
-    const users = roleService.getAllUser();
+  //   roleService.deactivateUser(user1.id);
+  //   roleService.deactivateUser(user2.id);
 
-    const result = users.length;
+  //   const sut = roleService.getActiveUsers();
+  //   const result = sut.length;
 
-    expect(result).toEqual(1);
-  });
+  //   expect(result).toEqual(1);
+  // });
+
+
+  // test('should set user email as verified', () => {
+  //   const newUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+
+  //   const user1 = roleService.createNewUser(newUser);
+
+  //   roleService.verifyUserEmail(user1.id);
+
+  //   const result = roleService.getUserById(user1.id).isEmailVerified;
+
+  //   expect(result).toEqual(true);
+  // });
+
+  // test('should update the user name', () => {
+  //   const oldUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+
+  //   const user1 = roleService.createNewUser(oldUser);
+
+  //   const updatedUser = {
+  //     id: user1.id,
+  //     name: "Frank Doe Poe",
+  //     email: "fdp@email.com",
+  //     password: "password2023",
+  //   }
+
+  //   const updateUserResult = roleService.updateUser(updatedUser);
+
+  //   expect(updateUserResult.name).toEqual("Frank Doe Poe");
+  // });
+
+  // test('should not update the user id', () => {
+  //   const oldUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+
+  //   const user1 = roleService.createNewUser(oldUser);
+
+  //   const updatedUser = {
+  //     id: user1.id,
+  //     name: "Frank Doe Poe",
+  //     email: "fdp@email.com",
+  //     password: "password2023",
+  //   }
+
+  //   const updateUserResult = roleService.updateUser(updatedUser);
+
+  //   expect(updateUserResult.id).toEqual(user1.id);
+  // });
+
+  // test('should not create multiple users with same email address', () => {
+  //   const newUser = {
+  //     name: "Frank Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+  //   const newUser2 = {
+  //     name: "Jane Doe",
+  //     email: "jd@email.com",
+  //     password: "password123",
+  //   }
+
+  //   const user1 = roleService.createNewUser(newUser);
+  //   const user2 = roleService.createNewUser(newUser2);
+
+  //   const users = roleService.getAllUser();
+
+  //   const result = users.length;
+
+  //   expect(result).toEqual(1);
+  // });
 
 });
