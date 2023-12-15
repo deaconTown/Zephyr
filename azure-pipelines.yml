@@ -66,6 +66,15 @@ steps:
   displayName: 'Archive Build Artifacts'
   
 - script: |
+    # List the items in the current directory
+    ls -al
+    
+    cd app/
+    ls -al
+    
+    cd app/frontend
+    ls -al
+
     filePath="app/frontend/Dockerfile"
 
     echo "##vso[task.setvariable variable=FilePath]$filePath"
