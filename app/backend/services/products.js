@@ -1,29 +1,80 @@
+const prisma = require('../data/prismaClient');
 const Products = require('../models/products')
 const products = new Products();
 
 class ProductService{
-    getAll = () =>{
-        return products.getAllProducts();
+    getAll = async () =>{
+        let prods = await prisma.product.findMany()
+        return prods;
     }
     
-    createProduct = (product) =>{
-        return products.createProduct(product);
+    createProduct = async (product) =>{
+        const prod = await prisma.product.create({
+            data:product
+        });
+        return prod;
+        //return products.createProduct(product);
     }
 
-    getProduct = (productId) => {
-        return products.getProduct(productId);
+    getProduct = async (productId) => {
+        let prod = await prisma.product.findUnique({
+            where: {
+                id: parseInt(productId)         
+              }
+        });
+        return prod;
+        //return products.getProduct(productId);
     }
 
-    updateProduct = (product) => {
-        products.updateProduct(product);
+    updateProduct = async (productId,product) => {
+        let prod = await prisma.product.update({
+            where: {
+                id: parseInt(productId)
+            },
+            data: { ...product }
+        })
+        return prod;
+        //return products.updateProduct(product);
     }
 
-    deleteProduct = (productId) => {
-        return products.deleteProduct(productId);
+    deleteProduct = async (productId) => {
+        let product = await this.getProduct(productId);
+        product.isDeleted = true;
+        let prod = await prisma.product.update({
+            where: {
+                id: parseInt(productId)
+            },
+            data: {                 
+                "isDeleted": true
+             }
+        })
+        return prod;
+        //return products.deleteProduct(productId);
     }
 
-    getProductsByMerchant = (merchantId) => {
-        return products.getProductsByMerchant(merchantId);
+    getProductsByMerchant = async (merchantId) => {
+        let prods = await prisma.product.findMany({
+            where: {
+                merchantId: parseInt(merchantId),
+                isDeleted: false,
+                isActive: true
+            }
+        })
+        return prods;
+        //return products.getProductsByMerchant(merchantId);
+    }
+
+    deactivateProduct = async (productId) => {
+        let prod = await prisma.product.update({
+            where: {
+                id: parseInt(productId)
+            },
+            data: { 
+                "isActive": false
+             }
+        })
+        return prod;
+        //return products.deactivateProduct(productId);
     }
 } 
 

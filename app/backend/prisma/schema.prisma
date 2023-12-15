@@ -19,6 +19,7 @@ model User {
   logoUrl   String?
   isActive  Boolean    @default(true)
   isDeleted Boolean    @default(false)
+  isEmailVerified Boolean    @default(false)
   userRoles UserRole[]
   OrdersMade Order[] @relation("customer")
   OrdersReceived Order[] @relation("merchant")

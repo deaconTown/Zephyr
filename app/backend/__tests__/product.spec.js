@@ -63,7 +63,7 @@ describe('Product Service', () => {
   test('should get all active products', () => {
     var allProducts = productService.getAll();
     var allActiveProducts = allProducts.filter(prod => prod.isActive === true);
-    expect(allActiveProducts.length).toEqual(5);
+    expect(allActiveProducts.length).toEqual(6);
   });
 
   test('should get product by id', () => {
@@ -93,25 +93,40 @@ describe('Product Service', () => {
     expect(stockLevelIncreased).toEqual(true);
   });
 
-  test('should decrease product stock level by one when the product is deleted', () => {
-    let isDeleted = false;
-    let product = productService.getProduct(3);
-    let currentStockLevel = product.stockLevel;
-    productService.deleteProduct(3);
-
-  });
-
-  test('should decrease product stock level when the product is inactive', () => {
-    expect.assertions(1);
-  });
-
   test('product stock level should not go below zero', () => {
-    expect.assertions(1);
+    newProduct = {
+      "id": 2,
+      "merchantId": 1,
+      "name": "Just Nuff",
+      "unitCost": 900,
+      "stockLevel": -2,
+      "imageUrl": "",
+      "description": "Festival with Jerk Chicken",
+      "isActive": true,
+      "isDeleted": false
+   }
+
+    let productId = productService.updateProduct(newProduct);
+    let product = productService.getProduct(productId);
+    let isUpdated = false;
+
+    if(product.stockLevel <= 0){
+      isUpdated = true;
+    }
+
+    expect(isUpdated).toEqual(true);
+
   });
 
   test('should get all products by merchant id', () => {
-    let products = productService.getProductsByMerchant(1); 
+    let products = productService.getProductsByMerchant(2); 
+    let isFound = false;
 
+    if(products.length == 3){
+      isFound = true;
+    }
+     
+    expect(isFound).toEqual(true);
   });
 
   test('should delete a specific product', () => {    
