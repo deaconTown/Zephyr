@@ -20,6 +20,8 @@ model User {
   isActive  Boolean    @default(true)
   isDeleted Boolean    @default(false)
   userRoles UserRole[]
+  OrdersMade Order[] @relation("customer")
+  OrdersReceived Order[] @relation("merchant")
 }
 
 model Role {
@@ -53,6 +55,8 @@ model Order {
   statusId      Int
   totalCost     Int
   productOrders ProductOrder[]
+  customer     User   @relation("customer", fields: [customerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  merchant   User @relation("merchant", fields: [merchantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model ProductOrder {
