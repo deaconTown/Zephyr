@@ -115,8 +115,11 @@ class Products{
     deactivateProduct(productId){
         let product = this.getProduct(productId);
 
-        product.isActive = false;
-        this.updateProduct(product);
+        if(product != {}){
+            product.isActive = false;
+            this.updateProduct(product);
+        }
+        
 
         return product;
     }
