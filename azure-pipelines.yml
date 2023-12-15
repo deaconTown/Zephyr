@@ -49,7 +49,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/apps/frontend/'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/app/frontend/'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/frontend/frontend.zip'
@@ -58,7 +58,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/apps/backend/'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/app/backend/'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/backend/backend.zip'
