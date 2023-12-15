@@ -8,6 +8,15 @@ trigger:
 - develop
 - release/*
 
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'd4bd1e91-d4f9-4db0-86b2-2ae3ccafa7a4'
+  imageRepository: 'zephyr'
+  containerRegistry: 'devdockerreg01.azurecr.io'
+  bdockerfilePath: '**/backend/Dockerfile'
+  fdockerfilePath: '**/frontend/Dockerfile'
+  tag: '$(Build.BuildId)'
+
 pool:
   vmImage: ubuntu-latest
 
@@ -54,7 +63,7 @@ steps:
   inputs:
     command: buildAndPush
     repository: $(imageRepository)
-    dockerfile: $(dockerfilePath)/frontend
+    dockerfile: $(fdockerfilePath)
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       $(tag)
@@ -63,7 +72,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
@@ -72,8 +81,7 @@ steps:
   inputs:
     command: buildAndPush
     repository: $(imageRepository)
-    dockerfile: $(dockerfilePath)backend/'
+    dockerfile: $(bdockerfilePath)
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       $(tag)
-
