@@ -123,10 +123,11 @@ class OrderRepository{
         try {
             if(orderId == null)
                 throw new Error(`There is an issue processing orderId : ${orderId}`)
+            let parsedOrderId = parseInt(orderId)
             console.log(`Attempting to remove order...`)
             const response = await prisma.order.delete({
                 where: {
-                    orderId: orderId,
+                    id: parsedOrderId,
                 },
               })
             if(response == null)
@@ -140,39 +141,17 @@ class OrderRepository{
         return result;
     }
 
-    
-    async deleteOrderById(orderId){
-        console.log(`OrderRepository: Enter deleteOrderById method with params: ${orderId}`)
-        let result = null;
-        try {
-            if(orderId == null)
-                throw new Error(`There is an issue processing orderId : ${orderId}`)
-            console.log(`Attempting to remove order...`)
-            const response = await prisma.order.delete({
-                where: {
-                    orderId: orderId,
-                },
-              })
-            if(response == null)
-                throw new Error(`There is an issue removing order: ${response}`)
-            console.log(`Order retrieved successfully with orderId: ${orderId}`)
-            result = response;
-        } catch (error) {
-            console.error(error);
-        }
-        console.log(`OrderRepository: Exit deleteOrderById method: ${result}`)
-        return result;
-    }
     async deleteOrderByCustomerId(customerId){
         console.log(`OrderRepository: Enter deleteOrderByCustomerId method with params: ${customerId}`)
         let result = null;
         try {
             if(customerId == null)
                 throw new Error(`There is an issue processing customerId : ${customerId}`)
+            let parsedCustomerId = parseInt(customerId)
             console.log(`Attempting to remove order...`)
             const response = await prisma.order.delete({
                 where: {
-                    customerId: customerId,
+                    customerId: parsedCustomerId,
                 },
               })
             if(response == null)
@@ -191,10 +170,11 @@ class OrderRepository{
         try {
             if(merchantId == null)
                 throw new Error(`There is an issue processing merchantId : ${merchantId}`)
+            let parsedMerchantId = parseInt(merchantId)
             console.log(`Attempting to remove order...`)
             const response = await prisma.order.delete({
                 where: {
-                    merchantId: merchantId,
+                    merchantId: parsedMerchantId,
                 },
               })
             if(response == null)

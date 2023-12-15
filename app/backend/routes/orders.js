@@ -4,7 +4,7 @@ let router = express.Router();
 
 const orderService = new OrderService();
 
-router.post('/create', async function (req, res, next) {
+router.post('/', async function (req, res, next) {
   const newOrder = req.body;
   let status = 400;
   const createdOrder = await orderService.createOrder(newOrder);
@@ -35,6 +35,14 @@ router.get('/merchant/:id', async function (req, res, next) {
   if (fetchedOrders != null)
     status = 200
   res.status(status).send(fetchedOrders);
+});
+router.put('/:id', async function (req, res, next) {
+  const orderId = req.params.id;
+  let status = 400;
+  const deletedOrder = await orderService.deleteOrderById(orderId);
+  if (deletedOrder != null)
+    status = 200
+  res.status(status).send(deletedOrder);
 });
 
 module.exports = router;

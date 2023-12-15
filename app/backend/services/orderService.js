@@ -73,6 +73,22 @@ class OrderService{
         console.log(`OrderService: Exit fetchOrdersByMerchantId method ${{result}}`)
         return result;
     }
+    deleteOrderById = async (orderId) => {
+        console.log(`OrderService: Enter fetchOrdersByMerchantId method with params: ${orderId}`)
+        let result = null;
+        try {
+            console.log(`Attempting to remove order for id: ${orderId}`)
+            const response = await this.orderRepository.deleteOrderById(orderId)
+            if(response == null)
+                throw new Error(`There is an issue fetching order: ${response}`)
+            console.log(`Order retrieved successfully`)
+            result = response;
+        } catch (error) {
+            console.error(error);
+        }
+        console.log(`OrderService: Exit fetchOrdersByMerchantId method ${{result}}`)
+        return result;
+    }
 }
 
 
