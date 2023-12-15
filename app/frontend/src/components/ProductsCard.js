@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, ListGroup } from "flowbite-react";
 import AccordionWidget from "./AccordionWidget";
 import useApiCall from './ApiCall';
 
+
 const ProductsCard = () => {
-    
-    const {data, loading, error} = useApiCall('http://localhost:3001/products/getall', 'GET');
+    //const url = process.env.REACT_APP_BASE_URL;
+    const {data, loading, error} = useApiCall(`http://localhost:3001/products/getall`, 'GET');
 
     if(loading)
         return <p>Loading...</p>;

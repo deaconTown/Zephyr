@@ -16,7 +16,7 @@ const AccordionWidget = ({product}) => {
                     <div className="flex justify-end">
                         <Button gradientDuoTone="greenToBlue" onClick={() => {
                             const item = localStorage.setItem('item',JSON.stringify(product));
-                            OrderDetails({item});
+                            OrderDetails({item})
                         }
                             }>
                             Order

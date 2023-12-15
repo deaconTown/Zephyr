@@ -4,8 +4,6 @@ import OrderDetail from './OrderDetail';
 
 function OrderDetails(orders) {
     const items =[JSON.parse(localStorage.getItem('item'))];
-    console.log(items);
-    
     return (
         <div className="[ order-details ][ border-2 border-solid ][ rounded-[10px] ][ flex flex-col ][ h-[775px] w-[800px] phone:w-[340px] ][ px-[20px] py-[30px] ][ ml-[50px] phone:mx-auto phone:mt-[20px] ]">
             <div className="[ text-[28px] font-[Lobster] text-[#404040] ]">Order Details</div>
@@ -19,12 +17,11 @@ function OrderDetails(orders) {
                     <div className="[ order-details-section ]">
                         <div className="[ order-details-container ][ h-[520px] ][ py-[20px] pr-[15px] phone:pr-[5px] ][ overflow-y-scroll ]">
                             {items.map((order) =>{
-                                console.log(order[0]);
                                 return(
                                     <OrderDetail
                                     name={order.name}
                                     description={order.description}
-                                    price={order.price}
+                                    price={order.unitCost}
                                     quantity={order.quantity}
                                     merchant={order.merchant}
                                     img={order.merchant}
