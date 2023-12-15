@@ -4,10 +4,13 @@ let router = express.Router();
 
 const orderService = new OrderService();
 
-router.post('/create', function (req, res, next) {
+router.post('/create',async function (req, res, next) {
     const newOrder = req.body;
+    let status = 400;
     const createdUser = orderService.createOrder(newOrder);
-    res.send(createdUser);
+    if(createdUser != null)
+        status = 201
+    res.status(status).send(createdUser);
   });
 
 module.exports = router;

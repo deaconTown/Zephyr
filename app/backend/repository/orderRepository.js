@@ -1,4 +1,4 @@
-
+const prisma = require("../data/prismaClient");
 class OrderRepository{
     async createOrder(order){
         console.log(`OrderRepository: Enter createOrder method with params: ${order}`)
