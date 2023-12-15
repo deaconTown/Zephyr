@@ -14,8 +14,8 @@ variables:
   frontendImageRepository: 'zephyr'
   backendImageRepository: 'zephyr'
   containerRegistry: 'devdockerreg01.azurecr.io'
-  bdockerfilePath: '**/backend/Dockerfile'
-  fdockerfilePath: '**/frontend/Dockerfile'
+  bdockerfilePath: 'backend**/Dockerfile'
+  fdockerfilePath: 'frontend**/Dockerfile'
   tag: '$(Build.BuildId)'
 
 pool:
