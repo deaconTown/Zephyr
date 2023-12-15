@@ -91,6 +91,26 @@ class UserService {
 
         // return roles;
     }
+    getUserByEmail = async(email) => {
+        console.log(`UserService: Enter getUserByEmail method with params: ${email}`)
+        let result = null;
+        try {
+            console.log("UserService:Attempting to fetch user")
+            const response = await prisma.user.findUnique({
+                where: {
+                    email: email,
+                },
+            });
+            if(response == null)
+                throw new Error(`There is an issue fetching user: ${response}`)
+            console.log(`User retrieved successfully`)
+            result = response;
+        } catch (error) {
+            console.error(error);
+        }
+        console.log(`OrderService: Exit getUserByEmail method ${result}}`)
+        return result;
+    }
     getAllUsersByRoleId = (roleId) => {
 
         const userRoles = this.userRoleService.getUserRolesByRoleId(roleId);
