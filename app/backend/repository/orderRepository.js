@@ -79,7 +79,7 @@ class OrderRepository{
                 throw new Error(`There is an issue processing customerId : ${customerId}`)
             let parsedCustomerId = parseInt(customerId)
             console.log(`Attempting to fetch order...`)
-            const response = await prisma.order.findUnique({
+            const response = await prisma.order.findMany({
                 where: {
                   customerId: parsedCustomerId,
                 },
@@ -100,10 +100,11 @@ class OrderRepository{
         try {
             if(merchantId == null)
                 throw new Error(`There is an issue processing merchantId : ${merchantId}`)
+            let parsedMerchantId = parseInt(merchantId)
             console.log(`Attempting to fetch order...`)
-            const response = await prisma.order.findUnique({
+            const response = await prisma.order.findMany({
                 where: {
-                  merchantId: merchantId,
+                  merchantId: parsedMerchantId,
                 },
               })
             if(response == null)
