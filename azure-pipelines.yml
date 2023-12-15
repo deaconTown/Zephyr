@@ -10,7 +10,7 @@ trigger:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'd4bd1e91-d4f9-4db0-86b2-2ae3ccafa7a4'
+  dockerRegistryServiceConnection: 'zephyr'
   frontendImageRepository: 'zephyr'
   backendImageRepository: 'zephyr'
   containerRegistry: 'devdockerreg01.azurecr.io'
