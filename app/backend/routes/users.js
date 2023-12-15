@@ -1,10 +1,5 @@
 var express = require('express');
-const UserService = require('../services/userService');
-const UserRoleService = require('../services/userRoleService');
 var router = express.Router();
-
-const userRoleService = new UserRoleService();
-const userService = new UserService(userRoleService);
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
