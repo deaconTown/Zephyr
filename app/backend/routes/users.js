@@ -48,6 +48,17 @@ router.get('/:id', async function (req, res, next) {
   }
 
 });
+router.get('/email/:id', async function (req, res, next) {
+  const email = req.params.id;
+
+  try {
+    const user = await userService.getUserByEmail(email);
+    res.send(user);
+  } catch (error) {
+    res.status(500).send({ errormessage: error.message })
+  }
+
+});
 
 router.delete('/:id', async function (req, res, next) {
   const { id } = req.params;
