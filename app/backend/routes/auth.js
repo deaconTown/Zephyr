@@ -132,24 +132,11 @@ router.get('/google/redirect', passport.authenticate("google",
 
 //Route for if login was succesful
 router.get("/success", (req,res) =>{
-    if (req.isAuthenticated()) {
-        res.status(200).send('Successful Login')
-    } else {
-        console.log('User was not authenticated')
-        res.status(403).send("Not Authenticated")
-    }
+    res.status(200).redirect('http://localhost:3000/')
 })
 
-//Send Login Information to Client
-// router.get(AUTH_USER,(req,res) =>{
-//     logger.info('Sending Active User Information to Login')
-//     logger.info(JSON.stringify(activeUser))
-//     activeUser.displayName === '' ? res.send(null) : res.json(activeUser)
-// })
-
 router.get('/failure', (req,res) =>{
-    console.log('Login attempt failed')
-    res.redirect(config.DOMAIN)
+    res.status(403).redirect('http://localhost:3000/')
 })
 
 router.post('/logout', (req,res) =>{
