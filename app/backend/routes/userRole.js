@@ -26,6 +26,10 @@ router.get('/:id', async function (req, res, next) {
 router.get('/roles/:roleId', async function(req, res, next){
   const userRoles = await userRoleService.getUserRolesByRoleId(req.params.roleId);
   res.send(userRoles);
-})
+});
+//get users by roleid
+
+//get 
+router.get('')
 
 module.exports = router;

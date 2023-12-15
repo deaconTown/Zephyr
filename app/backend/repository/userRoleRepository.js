@@ -55,7 +55,7 @@ class UserRoleRepository{
             console.log(`attempting to get user roles by roleId: ${roleId}`);
             const userRoles = await prisma.userRole.findMany({
                 where: {
-                    roleId: roleId
+                    roleId: parseInt(roleId)
                 }
             })
             return userRoles
